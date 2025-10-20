@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paquetes Web - IGW | Diseño Profesional</title>
+
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Íconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ======== VARIABLES ======== */
+    :root {
+      --bg-dark: #0e0e10;
+      --card-bg: #1a1a1d;
+      --text-light: #f5f5f5;
+      --text-muted: #b5b5b5;
+      --accent-gold: yellow;
+      --accent-blue: #00aaff;
+      --whatsapp-green: #25d366;
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    /* ======== GLOBAL ======== */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: radial-gradient(circle at top left, #111, #000);
+      color: var(--text-light);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-light);
+    }
+
+    /* ======== HEADER ======== */
+    h1 {
+      text-align: center;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: var(--accent-gold);
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ======== INTRO ======== */
+    .intro {
+      text-align: center;
+      background: linear-gradient(145deg, #1d1d20, #111);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      padding: 40px 25px;
+      max-width: 900px;
+      margin: 0 auto 70px;
+    }
+
+    .intro p {
+      font-size: 1.1em;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ======== GRID ======== */
+    .paquetes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+      max-width: 1100px;
+      margin: 0 auto 70px;
+      padding: 0 20px;
+    }
+
+    /* ======== CARD ======== */
+    .paquete-card {
+      background: linear-gradient(145deg, #1b1b1f, #131316);
+      border-radius: var(--radius);
+      padding: 35px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      transition: var(--transition);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .paquete-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+    }
+
+    .paquete-card h2 {
+      font-size: 1.8em;
+      text-align: center;
+      color: var(--accent-gold);
+      border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .paquete-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 25px;
+      color: var(--text-muted);
+    }
+
+    .paquete-card ul li {
+      margin: 14px 0;
+      position: relative;
+      padding-left: 25px;
+      line-height: 1.6;
+    }
+
+    .paquete-card ul li::before {
+      content: "\f005";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: var(--accent-gold);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* ======== PRECIO ======== */
+    .precio-box {
+      background-color: var(--accent-gold);
+      color: #000;
+      text-align: center;
+      padding: 15px 0;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 1.9em;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ======== BOTÓN WHATSAPP ======== */
+    .whatsapp-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--whatsapp-green);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-weight: 700;
+      transition: var(--transition);
+      font-size: 1.05em;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    .whatsapp-button i {
+      margin-right: 10px;
+      font-size: 1.3em;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #1ebc57;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    }
+
+    /* ======== EXTRAS ======== */
+    .extras {
+      background: linear-gradient(145deg, #1b1b1f, #131316);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      padding: 35px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      border: 1px solid rgba(0, 170, 255, 0.3);
+    }
+
+    .extras h3 {
+      color: var(--accent-blue);
+      margin-bottom: 15px;
+    }
+
+    .extras ul {
+      list-style: none;
+      padding: 0;
+      color: var(--text-muted);
+    }
+
+    .extras li {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    /* ======== FOOTER ======== */
+    .footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9em;
+      margin-bottom: 30px;
+    }
+
+    /* ======== WHATSAPP FLOTANTE ======== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background-color: var(--whatsapp-green);
+      color: white;
+      display: flex;
+      text-decoration: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2em;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #1ebc57;
+    }
+
+    /* ======== RESPONSIVE ======== */
+    @media (max-width: 768px) {
+      .paquete-card {
+        padding: 25px;
+      }
+      .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        font-size: 1.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Paquetes Web – IGW</h1>
+
+  <div class="intro">
+    <p>Eleve su marca al siguiente nivel. Descubra nuestros planes de desarrollo web de calidad superior, diseñados para ofrecer una presencia digital sólida, elegante y de alto rendimiento. Confíe en la excelencia.</p>
+  </div>
+
+  <div class="paquetes-grid">
+    <div class="paquete-card">
+      <h2>Landing Page</h2>
+      <ul>
+        <li>Diseño responsive y de carga ultra-rápida.</li>
+        <li>Formulario de contacto optimizado para captación.</li>
+        <li>Integración elegante de redes sociales.</li>
+        <li>Estilo moderno y enfocado en la conversión.</li>
+      </ul>
+      <div class="precio-box">$99.000</div>
+      <a href="https://wa.me/5492646706973?text=Hola!%20Estoy%20interesado%20en%20el%20paquete%20Landing%20Page" target="_blank" class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i> Contactar por Landing
+      </a>
+    </div>
+
+    <div class="paquete-card">
+      <h2>Página Corporativa</h2>
+      <ul>
+        <li>Hasta 5 secciones con diseño modular.</li>
+        <li>Diseño responsive y accesible bajo estándares modernos.</li>
+        <li>Optimización SEO avanzada.</li>
+        <li>Formulario inteligente + Google Maps.</li>
+      </ul>
+      <div class="precio-box">$199.000</div>
+      <a href="https://wa.me/5492646706973?text=Hola!%20Estoy%20interesado%20en%20el%20paquete%20Corporativa" target="_blank" class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i> Contactar por Corporativa
+      </a>
+    </div>
+
+    <div class="paquete-card">
+      <h2>Web Profesional PRO</h2>
+      <ul>
+        <li>Arquitectura web escalable y modular.</li>
+        <li>Gestión de archivos y catálogos integrados.</li>
+        <li>Chat personalizado y soporte técnico.</li>
+        <li>Diseño exclusivo y consultoría SEO completa.</li>
+      </ul>
+      <div class="precio-box">$399.000</div>
+      <a href="https://wa.me/5492646706973?text=Hola!%20Estoy%20interesado%20en%20el%20paquete%20PRO" target="_blank" class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i> Contactar por Web PRO
+      </a>
+    </div>
+  </div>
+
+  <div class="extras">
+    <h3>💎 Opciones y Servicios Premium:</h3>
+    <ul>
+      <li><strong>Hosting y Dominio:</strong> No incluidos en los precios.</li>
+      <li>Opción 1: Hosting + dominio personalizado → <strong>$70.000/año</strong></li>
+      <li>Opción 2: Hosting gratuito (GitHub o Vercel).</li>
+      <li><strong>Mantención Mensual:</strong> Desde <strong>$30.000</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    &copy; IGW 2025 - Todos los Derechos Reservados
+  </div>
+
+  <a href="https://wa.me/5492646706973?text=Hola!%20Tengo%20una%20consulta%20sobre%20los%20paquetes%20web%20de%20IGW." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+</body>
+</html>
