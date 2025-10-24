@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humania Consultores | Tu Socio Estratégico en Talento</title>
+    <meta name="description" content="Consultoría integral en RRHH, desde la selección hasta el desarrollo de líderes. Web profesional y moderna.">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<style>
+  /* ==========================================================================
+   CSS PRINCIPAL - HUMANIA CONSULTORES V2.0 (Calidez y Modernidad)
+   ========================================================================== */
+
+/* 1. VARIABLES Y RESET BÁSICO */
+:root {
+    /* Paleta de colores: Verde (Crecimiento/Fresco) + Coral (Humano/Energía) */
+    --color-primario: #1abc9c; /* Turquesa/Verde Fresco */
+    --color-secundario: #34495e; /* Gris Oscuro (Seriedad) */
+    --color-acento: #e67e22; /* Naranja/Coral (Calidez, Acento) */
+    --color-fondo: #ecf0f1; /* Gris muy claro, casi blanco */
+    --color-texto-oscuro: #34495e;
+    --color-texto-claro: #ffffff;
+
+    /* Tipografía: Lato */
+    --fuente-principal: 'Lato', sans-serif;
+    --sombra-card: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --radio-borde: 8px; /* Bordes más suaves */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    color: var(--color-texto-oscuro);
+    line-height: 1.6;
+    background-color: var(--color-fondo);
+    transition: background-color 0.3s ease;
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+/* ==========================================================================
+   2. HEADER Y NAVEGACIÓN
+   ========================================================================== */
+header {
+    background-color: var(--color-texto-claro);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 25px;
+}
+
+.logo {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: var(--color-secundario);
+}
+
+.logo i {
+    color: var(--color-acento);
+    margin-right: 5px;
+}
+
+.menu-principal ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu-principal a {
+    text-decoration: none;
+    color: var(--color-secundario);
+    padding: 10px 18px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+    border-radius: 5px;
+}
+
+.menu-principal a:hover {
+    color: var(--color-primario);
+    background-color: rgba(26, 188, 156, 0.1);
+}
+
+/* ==========================================================================
+   3. BOTONES Y UTILIDADES
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.btn-cta {
+    background-color: var(--color-acento);
+    color: var(--color-texto-claro);
+    border-color: var(--color-acento);
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+    text-decoration: none;
+}
+
+.btn-cta:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+}
+
+.btn-primario {
+    background-color: var(--color-primario);
+    color: var(--color-texto-claro);
+    border-color: var(--color-primario);
+}
+
+.btn-primario:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: var(--color-secundario);
+    border-color: var(--color-secundario);
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-secundario);
+    color: var(--color-texto-claro);
+}
+
+.btn-primario-outline {
+    background-color: transparent;
+    color: var(--color-primario);
+    border-color: var(--color-primario);
+    border-radius: 30px;
+}
+.btn-primario-outline:hover {
+    background-color: var(--color-primario);
+    color: var(--color-texto-claro);
+}
+
+.btn-primario-full {
+    width: 100%;
+}
+
+.titulo-seccion {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 900;
+    color: var(--color-secundario);
+    position: relative;
+}
+
+.titulo-seccion::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-acento);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   4. SECCIONES
+   ========================================================================== */
+section {
+    padding: 90px 0;
+}
+
+/* SECCIÓN HERO */
+.hero-section {
+    background: linear-gradient(135deg, var(--color-fondo) 0%, #dbe4e6 100%);
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.titulo-principal {
+    font-size: 4rem;
+    margin-bottom: 25px;
+    font-weight: 900;
+    color: var(--color-secundario);
+}
+
+.subtitulo {
+    font-size: 1.6rem;
+    color: var(--color-secundario);
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+.acciones-hero > * {
+    margin: 0 15px;
+}
+
+/* SECCIÓN SERVICIOS */
+.servicios-section {
+    background-color: var(--color-texto-claro);
+}
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+.servicio-card {
+    background-color: var(--color-fondo);
+    padding: 40px 30px;
+    border-radius: var(--radio-borde);
+    text-align: center;
+    box-shadow: var(--sombra-card);
+    transition: all 0.3s ease;
+    border-bottom: 5px solid var(--color-primario);
+}
+
+.servicio-card:hover {
+    transform: translateY(-10px);
+    border-bottom-color: var(--color-acento);
+}
+
+.icono-servicio {
+    font-size: 3.5rem;
+    color: var(--color-primario);
+    margin-bottom: 20px;
+}
+
+.servicio-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+/* SECCIÓN NOSOTROS */
+.nosotros-section {
+    background-color: var(--color-fondo);
+}
+
+.contenido-nosotros {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.texto-nosotros {
+    flex: 1;
+}
+
+.imagen-nosotros {
+    flex: 1;
+    max-width: 50%;
+}
+
+.imagen-nosotros img {
+    width: 100%;
+    height: auto;
+    border-radius: 50% / 10%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* SECCIÓN CLIENTES Y TESTIMONIOS */
+.clientes-section {
+    background-color: var(--color-texto-claro);
+}
+
+.logo-slider {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 60px;
+}
+
+.logo-slider img {
+    max-width: 150px;
+    margin: 15px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.logo-slider img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.testimonios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    text-align: left;
+}
+
+.testimonio-card {
+    background-color: var(--color-fondo);
+    padding: 30px;
+    border-radius: var(--radio-borde);
+    border-left: 5px solid var(--color-acento);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.testimonio-card p {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.testimonio-card footer {
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+/* SECCIÓN CONTACTO */
+.contacto-section {
+    background-color: var(--color-secundario);
+    color: var(--color-texto-claro);
+}
+
+.contacto-section .titulo-seccion {
+    color: var(--color-texto-claro);
+}
+
+.contacto-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+}
+
+.formulario-container, .datos-contacto {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radio-borde);
+}
+
+.form-contacto input, .form-contacto textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--color-texto-oscuro);
+}
+
+.datos-contacto h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: var(--color-primario);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.datos-contacto i {
+    color: var(--color-acento);
+}
+
+.datos-contacto a {
+    color: var(--color-texto-claro);
+}
+
+.redes-sociales a {
+    font-size: 1.8rem;
+    margin-right: 15px;
+    color: var(--color-texto-claro);
+    opacity: 0.8;
+}
+
+.redes-sociales a:hover {
+    color: var(--color-acento);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   5. FOOTER
+   ========================================================================== */
+.footer {
+    background-color: var(--color-secundario);
+    color: var(--color-fondo);
+    padding: 30px 0;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--color-fondo);
+    opacity: 0.7;
+}
+
+.footer a:hover {
+    color: var(--color-acento);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 992px) {
+    section {
+        padding: 60px 0;
+    }
+    .titulo-principal {
+        font-size: 3rem;
+    }
+    .subtitulo {
+        font-size: 1.4rem;
+    }
+    
+    /* Contenido se apila en móvil */
+    .contenido-nosotros, .contacto-grid, .testimonios-grid {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .imagen-nosotros {
+        max-width: 100%;
+        order: -1; /* La imagen aparece primero para mejor impacto */
+    }
+
+    /* Header simplificado */
+    .menu-principal {
+        display: none;
+    }
+    header .contenedor {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .btn-cta {
+        display: block;
+        font-size: 0.9rem;
+        padding: 10px 18px;
+    }
+}
+
+</style>
+<body>
+
+    <header id="inicio">
+        <div class="contenedor">
+            <div class="logo">
+                <span><i class="fas fa-handshake"></i> Humania</span>
+            </div>
+            <nav class="menu-principal">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/XXXXXXXXXX" class="btn-cta"><i class="fab fa-whatsapp"></i> Contactar</a>
+        </div>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="contenedor texto-centrado">
+            <h1 class="titulo-principal">Potenciamos tu equipo, impulsamos tu crecimiento.</h1>
+            <p class="subtitulo">Consultoría integral en RRHH, desde la selección hasta el desarrollo de líderes.</p>
+            <div class="acciones-hero">
+                <a href="#servicios" class="btn btn-primario">Explorar Servicios</a>
+                <a href="https://wa.me/XXXXXXXXXX?text=Quiero%20enviar%20mi%20CV" class="btn btn-secundario"><i class="fas fa-file-pdf"></i> Envía tu CV</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="servicios-section">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Nuestros Servicios Estratégicos</h2>
+            <div class="servicios-grid">
+                <article class="servicio-card">
+                    <i class="fas fa-user-tie icono-servicio"></i>
+                    <h3>Selección de Personal</h3>
+                    <p>Encuentra el talento que se alinea perfectamente con la cultura y objetivos de tu empresa.</p>
+                </article>
+                <article class="servicio-card">
+                    <i class="fas fa-brain icono-servicio"></i>
+                    <h3>Desarrollo y Capacitación</h3>
+                    <p>Programas de training para potenciar las habilidades de tus líderes y equipos de trabajo.</p>
+                </article>
+                <article class="servicio-card">
+                    <i class="fas fa-chart-line icono-servicio"></i>
+                    <h3>Clima y Cultura</h3>
+                    <p>Medición y estrategias para mejorar el ambiente laboral y la retención de talentos.</p>
+                </article>
+                <article class="servicio-card">
+                    <i class="fas fa-lightbulb icono-servicio"></i>
+                    <h3>Evaluación de Potencial</h3>
+                    <p>Herramientas de assessment para identificar líderes y planificar sucesiones internas.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="nosotros-section">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Nuestra Visión, Tu Éxito.</h2>
+            <div class="contenido-nosotros">
+                <div class="texto-nosotros">
+                    <p>Somos una consultora con [X años] de experiencia, dedicada a transformar el área de RRHH de las empresas. Nuestra filosofía se basa en la **honestidad, la innovación y la adaptación** a las necesidades únicas de cada cliente.</p>
+                    <p>Más que consultores, somos tu socio estratégico, trabajando codo a codo para asegurar que tu mayor activo (tu equipo) esté siempre en su mejor nivel.</p>
+                    <a href="#contacto" class="btn btn-primario-outline">Conoce al Equipo</a>
+                </div>
+                <div class="imagen-nosotros">
+                    <img src="https://www.inalde.edu.co/wp-content/uploads/2017/05/Por_Que_A_La_Alta_Direccion_Le_Cuesta_Creer_En_El_Area_De_Recursos_Humanos_Inalde.jpg" alt="Equipo de Humania Consultores">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clientes" class="clientes-section">
+        <div class="contenedor texto-centrado">
+            <h2 class="titulo-seccion">Nuestros Clientes Confían en Nuestro Trabajo</h2>
+
+            <div class="logo-slider">
+                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 1">
+                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 2">
+                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 3">
+            </div>
+
+            <div class="testimonios-grid">
+                <blockquote class="testimonio-card">
+                    <p>"El proceso de selección fue impecable. Encontramos al candidato ideal en un tiempo récord."</p>
+                    <footer>— Laura M., Directora de Operaciones</footer>
+                </blockquote>
+                <blockquote class="testimonio-card">
+                    <p>"La capacitación para liderazgo nos dio herramientas reales y aplicables desde el primer día."</p>
+                    <footer>— Ricardo T., Gerente de Desarrollo</footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto-section">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Conversemos sobre tu Talento.</h2>
+            <div class="contacto-grid">
+                <div class="formulario-container">
+                    <form action="#" method="POST" class="form-contacto">
+                        <input type="text" name="nombre" placeholder="Nombre completo" required>
+                        <input type="email" name="email" placeholder="Correo electrónico" required>
+                        <textarea name="mensaje" placeholder="Describe tu consulta" required></textarea>
+                        <button type="submit" class="btn btn-primario-full">Enviar Consulta</button>
+                    </form>
+                </div>
+
+                <div class="datos-contacto">
+                    <h3>Datos de la Consultora</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Principal 1234, Ciudad Autónoma.</p>
+                    <p><i class="fas fa-phone-alt"></i> +54 9 11 XXXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:contacto@tuconsultora.com">contacto@tuconsultora.com</a></p>
+                    <div class="redes-sociales">
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="contenedor texto-centrado">
+            <p>&copy; 2025 Humania Consultores. Todos los derechos reservados.</p>
+            <div class="enlaces-legales">
+                <a href="#">Aviso Legal</a> | <a href="#">Política de Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
