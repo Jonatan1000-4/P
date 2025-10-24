@@ -597,6 +597,37 @@ section {
             </div>
         </div>
     </footer>
+    <script>
+    // 1. Deshabilita el menú contextual (click derecho)
+    document.addEventListener('contextmenu', function(e) {
+        // e.preventDefault(); 
+        // Nota: El 'preventDefault' es muy molesto. Es mejor solo alertar.
+        alert("¡Cuidado! Este sitio es propiedad de Humania Consultores.");
+        e.preventDefault(); 
+    });
+
+    // 2. Deshabilita la selección de texto (para evitar el copiado fácil)
+    document.addEventListener('selectstart', function(e) {
+        // e.preventDefault(); // Esta línea deshabilitaría la selección completamente
+    });
+
+    // 3. Deshabilita las teclas de función (F12) para abrir las herramientas de desarrollo
+    document.onkeydown = function(e) {
+        // Deshabilita F12
+        if (e.keyCode === 123) {
+            return false;
+        }
+        // Deshabilita Ctrl+Shift+I, Ctrl+Shift+J (Para Chrome)
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+            return false;
+        }
+        // Deshabilita Ctrl+U (Ver código fuente)
+        if (e.ctrlKey && e.keyCode === 85) {
+            return false;
+        }
+    };
+    </script>
+    
 
 </body>
 </html>
