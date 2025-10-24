@@ -6,16 +6,13 @@
     <title>Humania Consultores | Tu Socio Estratégico en Talento</title>
     <meta name="description" content="Consultoría integral en RRHH, desde la selección hasta el desarrollo de líderes. Web profesional y moderna.">
     
-    <link rel="stylesheet" href="css/style.css">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
+    
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 <style>
-  /* ==========================================================================
-   CSS PRINCIPAL - HUMANIA CONSULTORES V2.0 (Calidez y Modernidad)
-   ========================================================================== */
 
 /* 1. VARIABLES Y RESET BÁSICO */
 :root {
@@ -143,13 +140,13 @@ header .contenedor {
 
 .btn-secundario {
     background-color: transparent;
-    color: var(--color-secundario);
-    border-color: var(--color-secundario);
+    color: var(--color-texto-claro); /* Se cambia a blanco para el fondo oscuro */
+    border-color: var(--color-texto-claro);
 }
 
 .btn-secundario:hover {
-    background-color: var(--color-secundario);
-    color: var(--color-texto-claro);
+    background-color: var(--color-texto-claro);
+    color: var(--color-secundario);
 }
 
 .btn-primario-outline {
@@ -191,65 +188,92 @@ header .contenedor {
    ========================================================================== */
 section {
     padding: 90px 0;
+    position: relative; /* Necesario para manejar capas de fondo y z-index */
 }
 
-/* SECCIÓN HERO */
+/* SECCIÓN HERO - Fondo con imagen B/N y capa oscura */
 .hero-section {
-    background: linear-gradient(135deg, var(--color-fondo) 0%, #dbe4e6 100%);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://img.freepik.com/foto-gratis/celebre-concepto-social-unidad-amigos-juntos-unidad_53876-23027.jpg?semt=ais_hybrid&w=740&q=80') center center / cover no-repeat;
     min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    color: var(--color-texto-claro); 
 }
 
 .titulo-principal {
     font-size: 4rem;
     margin-bottom: 25px;
     font-weight: 900;
-    color: var(--color-secundario);
+    color: var(--color-texto-claro); 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); 
 }
 
 .subtitulo {
     font-size: 1.6rem;
-    color: var(--color-secundario);
+    color: var(--color-texto-claro); 
     margin-bottom: 50px;
     font-weight: 400;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .acciones-hero > * {
     margin: 0 15px;
 }
 
-/* SECCIÓN SERVICIOS */
+/* SECCIÓN SERVICIOS CON IMAGEN DE FONDO (B/N y fijo) */
 .servicios-section {
-    background-color: var(--color-texto-claro);
+    /* Imagen de fondo de engranajes o estructura B/N para profesionalismo (fixed: efecto parallax) */
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJtNZyvgz2RO90HEFOwKRGo2AjngOsAuxmak_0Q0OiogLpBbhBOFcMGAl&s=10') center center / cover no-repeat fixed;
+    color: var(--color-texto-claro); 
+    position: relative;
+    z-index: 1;
+}
+/* Capa para oscurecer la imagen y asegurar la legibilidad del texto */
+.servicios-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 73, 94, 0.95); /* Gris oscuro con alta opacidad */
+    z-index: -1;
+}
+/* Aseguramos que los títulos sean blancos */
+.servicios-section .titulo-seccion,
+.servicios-section .servicio-card h3 {
+    color: var(--color-texto-claro);
 }
 
+/* Ajustamos las tarjetas para que resalten */
 .servicios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 35px;
 }
-
 .servicio-card {
-    background-color: var(--color-fondo);
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
     padding: 40px 30px;
     border-radius: var(--radio-borde);
     text-align: center;
-    box-shadow: var(--sombra-card);
+    box-shadow: none; 
     transition: all 0.3s ease;
     border-bottom: 5px solid var(--color-primario);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
 }
 
 .servicio-card:hover {
     transform: translateY(-10px);
     border-bottom-color: var(--color-acento);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .icono-servicio {
     font-size: 3.5rem;
-    color: var(--color-primario);
+    color: var(--color-acento); /* Color acento para íconos */
     margin-bottom: 20px;
 }
 
@@ -285,9 +309,13 @@ section {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* SECCIÓN CLIENTES Y TESTIMONIOS */
+/* SECCIÓN CLIENTES Y TESTIMONIOS CON IMAGEN DE FONDO (Patrón sutil B/N) */
 .clientes-section {
-    background-color: var(--color-texto-claro);
+    /* Patrón sutil para dar textura y profesionalismo */
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKCE5OFe84YeqNwIdQv53wt5GLjzbttZNFB_e-zb-zpXeF7pTwlGar5AL&s=10') repeat; 
+    position: relative;
+    z-index: 1;
 }
 
 .logo-slider {
@@ -463,6 +491,7 @@ section {
 }
 
 </style>
+</head>
 <body>
 
     <header id="inicio">
@@ -484,36 +513,36 @@ section {
     </header>
 
     <section id="hero" class="hero-section">
-        <div class="contenedor texto-centrado">
+        <div class="contenedor texto-centrado" data-aos="fade-up" data-aos-duration="1000"> 
             <h1 class="titulo-principal">Potenciamos tu equipo, impulsamos tu crecimiento.</h1>
             <p class="subtitulo">Consultoría integral en RRHH, desde la selección hasta el desarrollo de líderes.</p>
             <div class="acciones-hero">
-                <a href="#servicios" class="btn btn-primario">Explorar Servicios</a>
-                <a href="https://wa.me/XXXXXXXXXX?text=Quiero%20enviar%20mi%20CV" class="btn btn-secundario"><i class="fas fa-file-pdf"></i> Envía tu CV</a>
+                <a href="#servicios" class="btn btn-primario" data-aos="zoom-in" data-aos-delay="500">Explorar Servicios</a>
+                <a href="https://wa.me/XXXXXXXXXX?text=Quiero%20enviar%20mi%20CV" class="btn btn-secundario" data-aos="zoom-in" data-aos-delay="600"><i class="fas fa-file-pdf"></i> Envía tu CV</a>
             </div>
         </div>
     </section>
 
     <section id="servicios" class="servicios-section">
         <div class="contenedor">
-            <h2 class="titulo-seccion">Nuestros Servicios Estratégicos</h2>
+            <h2 class="titulo-seccion" data-aos="fade-down">Nuestros Servicios Estratégicos</h2>
             <div class="servicios-grid">
-                <article class="servicio-card">
+                <article class="servicio-card" data-aos="fade-up">
                     <i class="fas fa-user-tie icono-servicio"></i>
                     <h3>Selección de Personal</h3>
                     <p>Encuentra el talento que se alinea perfectamente con la cultura y objetivos de tu empresa.</p>
                 </article>
-                <article class="servicio-card">
+                <article class="servicio-card" data-aos="fade-up" data-aos-delay="100">
                     <i class="fas fa-brain icono-servicio"></i>
                     <h3>Desarrollo y Capacitación</h3>
                     <p>Programas de training para potenciar las habilidades de tus líderes y equipos de trabajo.</p>
                 </article>
-                <article class="servicio-card">
+                <article class="servicio-card" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-chart-line icono-servicio"></i>
                     <h3>Clima y Cultura</h3>
                     <p>Medición y estrategias para mejorar el ambiente laboral y la retención de talentos.</p>
                 </article>
-                <article class="servicio-card">
+                <article class="servicio-card" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-lightbulb icono-servicio"></i>
                     <h3>Evaluación de Potencial</h3>
                     <p>Herramientas de assessment para identificar líderes y planificar sucesiones internas.</p>
@@ -524,15 +553,15 @@ section {
 
     <section id="nosotros" class="nosotros-section">
         <div class="contenedor">
-            <h2 class="titulo-seccion">Nuestra Visión, Tu Éxito.</h2>
+            <h2 class="titulo-seccion" data-aos="fade-right">Nuestra Visión, Tu Éxito.</h2>
             <div class="contenido-nosotros">
-                <div class="texto-nosotros">
+                <div class="texto-nosotros" data-aos="fade-right" data-aos-delay="200">
                     <p>Somos una consultora con [X años] de experiencia, dedicada a transformar el área de RRHH de las empresas. Nuestra filosofía se basa en la **honestidad, la innovación y la adaptación** a las necesidades únicas de cada cliente.</p>
                     <p>Más que consultores, somos tu socio estratégico, trabajando codo a codo para asegurar que tu mayor activo (tu equipo) esté siempre en su mejor nivel.</p>
                     <a href="#contacto" class="btn btn-primario-outline">Conoce al Equipo</a>
                 </div>
-                <div class="imagen-nosotros">
-                    <img src="https://www.inalde.edu.co/wp-content/uploads/2017/05/Por_Que_A_La_Alta_Direccion_Le_Cuesta_Creer_En_El_Area_De_Recursos_Humanos_Inalde.jpg" alt="Equipo de Humania Consultores">
+                <div class="imagen-nosotros" data-aos="fade-left" data-aos-delay="300">
+                    <img src="https://www.inalde.edu.co/wp-content/uploads/2017/05/Por_Que_A_La_Alta_Direccion_Le_Cuesta_Creer_En_El_Area_De_Recursos_Humanos_Inalde.jpg" alt="Equipo de Humania Consultores" loading="lazy">
                 </div>
             </div>
         </div>
@@ -540,20 +569,21 @@ section {
 
     <section id="clientes" class="clientes-section">
         <div class="contenedor texto-centrado">
-            <h2 class="titulo-seccion">Nuestros Clientes Confían en Nuestro Trabajo</h2>
+            <h2 class="titulo-seccion" data-aos="zoom-in-up">Nuestros Clientes Confían en Nuestro Trabajo</h2>
 
             <div class="logo-slider">
-                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 1">
-                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 2">
-                <img src="https://tahecosmetics.com/trends/wp-content/uploads/2022/02/estilos-tipos-barba-hombre.jpg" alt="Cliente 3">
+                <img src="https://www.designevo.com/res/templates/thumb_small/girl-face-and-black-ace-icon.webp" alt="Cliente 1" loading="lazy" data-aos="flip-up">
+                <img src="https://www.designevo.com/res/templates/thumb_small/figured-black-and-white-starry-stamp.webp" alt="Cliente 2" loading="lazy" data-aos="flip-up" data-aos-delay="100">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-aY9p7-n236B0y63AjH8KgLoHOnTxHdB-7HMwquQ8DXHverL-qlHa3WKi&s=10" alt="Cliente 3" loading="lazy" data-aos="flip-up" data-aos-delay="200">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-aY9p7-n236B0y63AjH8KgLoHOnTxHdB-7HMwquQ8DXHverL-qlHa3WKi&s=10" alt="Cliente 3" loading="lazy" data-aos="flip-up" data-aos-delay="250">
             </div>
 
             <div class="testimonios-grid">
-                <blockquote class="testimonio-card">
+                <blockquote class="testimonio-card" data-aos="fade-right">
                     <p>"El proceso de selección fue impecable. Encontramos al candidato ideal en un tiempo récord."</p>
                     <footer>— Laura M., Directora de Operaciones</footer>
                 </blockquote>
-                <blockquote class="testimonio-card">
+                <blockquote class="testimonio-card" data-aos="fade-left">
                     <p>"La capacitación para liderazgo nos dio herramientas reales y aplicables desde el primer día."</p>
                     <footer>— Ricardo T., Gerente de Desarrollo</footer>
                 </blockquote>
@@ -562,10 +592,10 @@ section {
     </section>
 
     <section id="contacto" class="contacto-section">
-        <div class="contenedor">
+        <div class="contenedor" data-aos="fade-up">
             <h2 class="titulo-seccion">Conversemos sobre tu Talento.</h2>
             <div class="contacto-grid">
-                <div class="formulario-container">
+                <div class="formulario-container" data-aos="fade-right">
                     <form action="#" method="POST" class="form-contacto">
                         <input type="text" name="nombre" placeholder="Nombre completo" required>
                         <input type="email" name="email" placeholder="Correo electrónico" required>
@@ -574,7 +604,7 @@ section {
                     </form>
                 </div>
 
-                <div class="datos-contacto">
+                <div class="datos-contacto" data-aos="fade-left">
                     <h3>Datos de la Consultora</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Av. Principal 1234, Ciudad Autónoma.</p>
                     <p><i class="fas fa-phone-alt"></i> +54 9 11 XXXX-XXXX</p>
@@ -592,42 +622,4 @@ section {
     <footer class="footer">
         <div class="contenedor texto-centrado">
             <p>&copy; 2025 Humania Consultores. Todos los derechos reservados.</p>
-            <div class="enlaces-legales">
-                <a href="#">Aviso Legal</a> | <a href="#">Política de Privacidad</a>
-            </div>
-        </div>
-    </footer>
-    <script>
-    // 1. Deshabilita el menú contextual (click derecho)
-    document.addEventListener('contextmenu', function(e) {
-        // e.preventDefault(); 
-        // Nota: El 'preventDefault' es muy molesto. Es mejor solo alertar.
-        alert("¡Cuidado! Este sitio es propiedad de Humania Consultores.");
-        e.preventDefault(); 
-    });
-
-    // 2. Deshabilita la selección de texto (para evitar el copiado fácil)
-    document.addEventListener('selectstart', function(e) {
-        // e.preventDefault(); // Esta línea deshabilitaría la selección completamente
-    });
-
-    // 3. Deshabilita las teclas de función (F12) para abrir las herramientas de desarrollo
-    document.onkeydown = function(e) {
-        // Deshabilita F12
-        if (e.keyCode === 123) {
-            return false;
-        }
-        // Deshabilita Ctrl+Shift+I, Ctrl+Shift+J (Para Chrome)
-        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
-            return false;
-        }
-        // Deshabilita Ctrl+U (Ver código fuente)
-        if (e.ctrlKey && e.keyCode === 85) {
-            return false;
-        }
-    };
-    </script>
-    
-
-</body>
-</html>
+            <div class="enlac
