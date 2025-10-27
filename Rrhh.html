@@ -35,9 +35,10 @@
     box-sizing: border-box;
 }
 
-html {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    height: 100%;
 }
 
 body {
@@ -46,9 +47,6 @@ body {
     line-height: 1.8;
     background-color: var(--color-blanco);
     font-weight: 400;
-    padding-bottom: env(safe-area-inset-bottom, 0);
-    height: 100%;
-    
 }
 
 .contenedor {
@@ -78,22 +76,34 @@ header .contenedor {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(45, 106, 79, 0.15);
+    transition: var(--transicion);
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+}
+
+.logo-texto {
     font-size: 1.8rem;
     font-weight: 900;
     color: var(--color-primario);
-    display: flex;
-    align-items: center;
-    gap: 12px;
     letter-spacing: -0.5px;
 }
 
-.logo span {
+.logo-bmp {
     color: var(--color-primario-oscuro);
-}
-
-.logo i {
-    color: var(--color-secundario);
-    font-size: 2rem;
 }
 
 .menu-principal ul {
@@ -118,31 +128,32 @@ header .contenedor {
     background-color: rgba(45, 106, 79, 0.05);
 }
 
-.whatsapp-float {
-  position: fixed; /* Flotante, siempre visible */
-  width: 60px;
-  height: 60px;
-  bottom: 20px; /* Distancia desde la parte inferior */
-  right: 20px; /* Distancia desde la derecha */
-  background-color: #25d366; /* Verde WhatsApp */
-  border-radius: 50%; /* Forma circular */
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.3); /* Sombra */
-  z-index: 9999 !important; /* Prioridad máxima para estar encima */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none; /* Quita subrayado del enlace */
+.whatsapp-flotante {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
 }
 
-.whatsapp-float img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ajusta la imagen */
-  border-radius: 50%;
+.whatsapp-flotante a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: var(--color-blanco);
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    text-decoration: none;
+    font-size: 28px;
+    transition: var(--transicion);
+    animation: pulse 2s infinite;
 }
 
-.whatsapp-float:hover {
-  background-color: #128c7e; /* Cambio de color al hover */
+.whatsapp-flotante a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
 }
 
 @keyframes pulse {
@@ -180,6 +191,21 @@ header .contenedor {
     box-shadow: 0 6px 20px rgba(45, 106, 79, 0.3);
 }
 
+.btn-secundario {
+    background-color: transparent;
+    color: var(--color-blanco);
+    border-color: var(--color-blanco);
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-blanco);
+    color: var(--color-primario);
+}
+
+.btn-primario-full {
+    width: 100%;
+}
+
 .titulo-seccion {
     font-size: 2.8rem;
     text-align: center;
@@ -213,6 +239,7 @@ header .contenedor {
 section {
     padding: 100px 0;
     position: relative;
+    overflow-x: hidden;
 }
 
 .hero-section {
@@ -464,41 +491,6 @@ section {
 .galeria-imagenes img:hover {
     transform: scale(1.05);
     box-shadow: var(--sombra-media);
-}
-
-.whatsapp-btn {
-  position: fixed;
-  bottom: max(15px, env(safe-area-inset-bottom) + 10px);
-  right: 15px;
-  background-color: #25d366;
-  color: white;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  z-index: 10000;
-  transition: all 0.3s ease;
-  animation: pulse 2s infinite;
-}
-
-.whatsapp-btn:hover {
-  background-color: #128c7e;
-  transform: scale(1.08);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-
-/* Animación suave */
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-  }
 }
 
 .valores-grid {
@@ -850,7 +842,7 @@ section {
 .footer {
     background: linear-gradient(135deg, var(--color-primario-oscuro) 0%, var(--color-primario) 100%);
     color: var(--color-blanco);
-    padding: 50px 0;
+    padding: 50px 0 30px 0;
     font-size: 0.95rem;
 }
 
@@ -920,13 +912,7 @@ section {
     .titulo-principal {
         font-size: 2.2rem;
     }
-   .whatsapp-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    right: 12px;
-    bottom: max(12px, env(safe-area-inset-bottom) + 8px);
-  }
+    
     .titulo-seccion {
         font-size: 2.2rem;
     }
@@ -939,36 +925,40 @@ section {
         padding: 15px 20px;
     }
     
-        .whatsapp-flotante {
-        bottom: 20px;
-        right:25px;
-        display: block;
-    }
-    
-    .whatsapp-flotante a {
-        width: 55px;
-        height: 55px;
-        font-size: 26px;
-    }
     .contenedor {
         padding: 0 20px;
-  
+    }
     
     .formulario-container, .datos-contacto {
         padding: 30px;
+    }
+   
+    .whatsapp-flotante {
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    .whatsapp-flotante a {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
     }
 }
 </style>
 </head>
 <body>
 
-    
+    <div class="whatsapp-flotante">
+        <a href="https://wa.me/5492646617384" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactar por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <header id="inicio">
         <div class="contenedor">
             <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <span>BMP</span> CONSULTORA
+                <img src="https://i.ibb.co/tppyj5Jx/MARCA-BMP-1.png" alt="BMP Consultora Logo" class="logo-img">
+                <span class="logo-texto"><span class="logo-bmp">BMP</span> CONSULTORA</span>
             </div>
             <nav class="menu-principal">
                 <ul>
@@ -992,6 +982,9 @@ section {
             <div class="acciones-hero">
                 <a href="#servicios" class="btn btn-primario" data-aos="zoom-in" data-aos-delay="400">
                     <i class="fas fa-briefcase"></i> Explorar Servicios
+                </a>
+                <a href="#contacto" class="btn btn-secundario" data-aos="zoom-in" data-aos-delay="500">
+                    <i class="fas fa-envelope"></i> Contáctanos
                 </a>
             </div>
         </div>
@@ -1047,7 +1040,7 @@ section {
             </div>
         </div>
     </section>
-     <section id="nosotros" class="nosotros-section">
+    <section id="nosotros" class="nosotros-section">
         <div class="contenedor">
             <h2 class="titulo-seccion" data-aos="fade-right">Sobre Nosotros</h2>
             <p class="subtitulo-seccion" data-aos="fade-up">Compromiso, profesionalismo y desarrollo sostenible</p>
@@ -1061,6 +1054,7 @@ section {
                     
                     <p>Reconociendo que el área de Recursos Humanos es fundamental para alcanzar los objetivos de cualquier organización, nuestra consultora cuenta con profesionales especializados en esta área, así como con un equipo multidisciplinario que enriquece nuestros productos y servicios.</p>
                 </div>
+                
                 <div class="imagen-nosotros" data-aos="fade-left" data-aos-delay="300">
                     <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Equipo de BMP Consultora Talento Humano" loading="lazy">
                 </div>
@@ -1077,6 +1071,7 @@ section {
                     <h3><i class="fas fa-bullseye"></i> Misión</h3>
                     <p>Nuestra consultora de recursos humanos se dedica a colaborar y orientar a empresas y emprendedores en su crecimiento, aportando soluciones innovadoras y estratégicas que potencien al talento humano y faciliten el éxito empresarial.</p>
                 </div>
+                
                 <div class="mv-card">
                     <h3><i class="fas fa-eye"></i> Visión</h3>
                     <p>Aspiramos a ser reconocidos como referentes en el ámbito de recursos humanos a nivel regional, trabajar sin límites geográficos, destacándonos por nuestra excelencia en el servicio, la integración de profesionales locales y el impacto positivo en el desarrollo empresarial de la comunidad.</p>
@@ -1129,35 +1124,34 @@ section {
             </div>
         </div>
     </section>
-    
-    <section id="clientes" class="clientes-section">
+        <section id="clientes" class="clientes-section">
         <div class="contenedor texto-centrado">
             <h2 class="titulo-seccion" data-aos="zoom-in-up">Nuestros Clientes</h2>
             <p class="clientes-intro" data-aos="fade-up">Empresas y organizaciones que confían en nuestra experiencia y profesionalismo</p>
 
             <div class="clientes-grid">
                 <div class="cliente-card" data-aos="flip-up" data-aos-delay="100">
-                    <img src="logo-municipalidad.png" alt="Municipalidad de Iglesia" loading="lazy">
+                    <img src="https://www.municipalidaddeiglesia.gob.ar/imagenes/logo2Smart.png" alt="Municipalidad de Iglesia" loading="lazy">
                     <h4>Municipalidad de Iglesia</h4>
                 </div>
                 
                 <div class="cliente-card" data-aos="flip-up" data-aos-delay="150">
-                    <img src="logo-icon.png" alt="Empresa Icon" loading="lazy">
+                    <img src="https://via.placeholder.com/150x100?text=Icon" alt="Empresa Icon" loading="lazy">
                     <h4>Empresa Icon</h4>
                 </div>
                 
                 <div class="cliente-card" data-aos="flip-up" data-aos-delay="200">
-                    <img src="logo-fortescue.png" alt="Empresa Fortescue" loading="lazy">
+                    <img src="https://via.placeholder.com/150x100?text=Fortescue" alt="Empresa Fortescue" loading="lazy">
                     <h4>Empresa Fortescue</h4>
                 </div>
                 
                 <div class="cliente-card" data-aos="flip-up" data-aos-delay="250">
-                    <img src="logo-filo-del-sol.png" alt="Empresa Filo del Sol" loading="lazy">
+                    <img src="https://via.placeholder.com/150x100?text=Filo+del+Sol" alt="Empresa Filo del Sol" loading="lazy">
                     <h4>Empresa Filo del Sol</h4>
                 </div>
                 
                 <div class="cliente-card" data-aos="flip-up" data-aos-delay="300">
-                    <img src="logo-fundacion-empujar.png" alt="Fundación Empujar" loading="lazy">
+                    <img src="https://via.placeholder.com/150x100?text=Empujar" alt="Fundación Empujar" loading="lazy">
                     <h4>Fundación Empujar</h4>
                 </div>
             </div>
@@ -1168,86 +1162,110 @@ section {
             </div>
         </div>
     </section>
-     <section id="contacto" class="contacto-section">
-        <div class="contenedor" data-aos="fade-up">
-            <h2 class="titulo-seccion">Conversemos sobre tu Talento</h2>
-            <p class="subtitulo-seccion">Estamos aquí para impulsar el crecimiento de tu organización</p>
-            
-            <div class="contacto-grid">
-                <div class="formulario-container" data-aos="fade-right" data-aos-delay="200">
-                    <form action="#" method="POST" class="form-contacto">
-                        <input type="text" name="nombre" placeholder="Nombre completo *" required>
-                        <input type="email" name="email" placeholder="Correo electrónico *" required>
-                        <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
-                        <textarea name="mensaje" placeholder="Cuéntanos sobre tu proyecto o consulta *" required></textarea>
-                        <button type="submit" class="btn btn-primario btn-primario-full">
-                            <i class="fas fa-paper-plane"></i> Enviar Consulta
-                        </button>
-                    </form>
-                </div>
 
-                <div class="datos-contacto" data-aos="fade-left" data-aos-delay="300">
-                    <h3>Información de Contacto</h3>
-                    
-                    <p>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Rodeo - Iglesia, San Juan</span>
-                    </p>
-                    
-                    <p>
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+5492646617384">264-6617384</a>
-                    </p>
-                    
-                    <p>
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:mprhservicios@gmail.com">mprhservicios@gmail.com</a>
-                    </p>
-                    
-                    <div class="redes-sociales">
-                        <h4>Síguenos en Redes Sociales</h4>
-                        <a href="https://www.instagram.com/BMP_RECURSOSHUMANOS" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/5492646617384" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </div>
+<section id="contacto" class="contacto-section">
+    <div class="contenedor" data-aos="fade-up">
+        <h2 class="titulo-seccion">Conversemos sobre tu Talento</h2>
+        <p class="subtitulo-seccion">Estamos aquí para impulsar el crecimiento de tu organización</p>
+        
+        <div class="contacto-grid">
+            <div class="formulario-container" data-aos="fade-right" data-aos-delay="200">
+                <form id="form-whatsapp" class="form-contacto">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre completo *" required>
+                    <input type="email" id="email" name="email" placeholder="Correo electrónico *" required>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Teléfono *" required>
+                    <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto o consulta *" required></textarea>
+                    <button type="submit" class="btn btn-primario btn-primario-full">
+                        <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                    </button>
+                </form>
+            </div>
+
+            <div class="datos-contacto" data-aos="fade-left" data-aos-delay="300">
+                <h3>Información de Contacto</h3>
+                
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Rodeo - Iglesia, San Juan</span>
+                </p>
+                
+                <p>
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:+5492646617384">264-6617384</a>
+                </p>
+                
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:mprhservicios@gmail.com">mprhservicios@gmail.com</a>
+                </p>
+                
+                <div class="redes-sociales">
+                    <h4>Síguenos en Redes Sociales</h4>
+                    <a href="https://www.instagram.com/BMP_RECURSOSHUMANOS" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5492646617384" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <footer class="footer">
         <div class="contenedor texto-centrado">
-            <p>&copy; 2025 BMP Consultora. Todos los derechos reservados.</p>
+            <p>&copy; 2025 BMP Consultora - Talento Humano. Todos los derechos reservados.</p>
+            <p>Iglesia, San Juan - Argentina</p>
             <p>Diseñado por IGW</p>
-            <p class="slogan">Invertí en Talento, Construí Futuro</p>
+            <p class="slogan">"INVERTÍ EN TALENTO, CONSTRUÍ FUTURO"</p>
         </div>
     </footer>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 1000,
             once: true,
-            offset: 100
+            offset: 100,
+            mirror: false
         });
     </script>
+
+    <!-- SCRIPT DE FORMULARIO WHATSAPP -->
     <script>
-window.addEventListener('scroll', function() {
-  var whatsappBtn = document.querySelector('.whatsapp-float');
-  if (window.scrollY > 100) { // Aparece después de bajar 100px
-    whatsappBtn.style.opacity = '1';
-  } else {
-    whatsappBtn.style.opacity = '0.5';
-  }
-});
+        // Formulario de contacto por WhatsApp
+        document.getElementById('form-whatsapp').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            // Número de WhatsApp de BMP Consultora (con código de país)
+            const numeroWhatsApp = '5492646617384';
+            
+            // Crear mensaje formateado
+            const mensajeWhatsApp = `*Nueva Consulta - BMP Consultora*%0A%0A` +
+                                   `*Nombre:* ${nombre}%0A` +
+                                   `*Email:* ${email}%0A` +
+                                   `*Teléfono:* ${telefono}%0A%0A` +
+                                   `*Consulta:*%0A${mensaje}`;
+            
+            // Crear URL de WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
+            
+            // Abrir WhatsApp en nueva pestaña
+            window.open(urlWhatsApp, '_blank');
+            
+            // Limpiar formulario después de enviar
+            this.reset();
+        });
     </script>
-<a href="https://wa.me/5492645123456" target="_blank" class="whatsapp-btn" aria-label="Chatear por WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
+
 </body>
 </html>
