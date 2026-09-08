@@ -105,6 +105,8 @@ footer{padding:40px 0;color:var(--muted-2);font-size:13.5px;border-top:1px solid
 label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
 input,textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px 13px;background:#fff;color:var(--ink)}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink)}
+input.field-error,textarea.field-error,select.field-error{border-color:#b3261e}
+.field-msg{color:#b3261e;font-size:12px;margin-top:6px}
 textarea{min-height:96px;resize:vertical}
 .hint,.secure-note{font-size:12.5px;color:var(--muted);margin-top:6px}
 .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -186,15 +188,15 @@ textarea{min-height:96px;resize:vertical}
 </head>
 <body>
 <header><div class="wrap"><nav>
-<div class="brand"><span class="brand-mark">CVE</span>CVE<em>— Tu CV listo</em></div>
+<div class="brand"><span class="brand-mark">CVE</span><em>— Tu CV listo</em></div>
 <div class="navlinks"><a href="#servicios">Servicios</a><a href="#plantillas">Modelos</a><a href="#faq">Preguntas</a><button class="btn" onclick="startService('new')">Hacer mi CV</button></div>
 </nav></div></header>
 
 <main>
 <section class="hero"><div class="wrap">
 <p class="eyebrow">Servicio de armado y actualización de CV</p>
-<h1>¿Necesitás hacer o actualizar tu CV?</h1>
-<p>Elegí tu caso y completá la información necesaria. Al final, se prepara todo para enviarlo por WhatsApp.</p>
+<h1>Tu CV, claro, profesional y listo para enviar.</h1>
+<p>Actualizamos el que ya tenés o lo hacemos desde cero. Elegí tu caso y completá la información necesaria.</p>
 <div class="actions"><button class="btn" onclick="document.querySelector('#servicios').scrollIntoView()">Ver opciones</button><button class="btn secondary" onclick="startService('new','first')">Necesito mi primer CV</button></div>
 <div class="trust"><span><b>Proceso claro</b> — sabés qué esperar en cada paso</span><span><b>Entrega en PDF</b> — listo para enviar o imprimir</span><span><b>Contacto por WhatsApp</b> — sin registros ni cuentas</span></div>
 </div></section>
@@ -203,8 +205,8 @@ textarea{min-height:96px;resize:vertical}
 <div class="wrap">
 <div class="sectionhead"><h2>¿Qué necesitás?</h2><p>Elegí la opción que más se parezca a tu caso.</p></div>
 <div class="grid3">
-<div class="card"><span class="label">Ya tengo un CV editable</span><h3>Actualizar mi CV</h3><p>Para modificar información de un currículum existente.</p><div class="price">$7.000</div><div class="price-note"><strong>Importante:</strong> este precio aplica cuando el CV está en un archivo realmente editable. Si solo tenés el CV en PDF o imagen y hay que volver a armarlo, corresponde el servicio de reconstrucción — $12.000.</div><ul><li>Datos de contacto</li><li>Agregar o quitar información</li><li>Fechas, cursos o experiencias</li><li>Revisión previa si solo tenés PDF</li></ul><button class="btn" onclick="startService('update')">Quiero actualizarlo</button></div>
-<div class="card"><span class="tag">Más elegido</span><span class="label">Solo tengo PDF o imagen</span><h3>Reconstruir + actualizar</h3><p>Si tu CV no puede editarse correctamente o querés pasarlo a otro diseño.</p><div class="price">$12.000</div><ul><li>Reconstrucción del documento</li><li>Cambios solicitados</li><li>Mantener o cambiar diseño</li><li>PDF final listo para enviar</li></ul><button class="btn" onclick="startService('rebuild')">Reconstruir mi CV</button></div>
+<div class="card"><span class="label">Ya tengo un CV editable</span><h3>Actualizar CV</h3><p>Para cambios sobre un CV que ya tenés en un archivo editable.</p><div class="price">$7.000</div><ul><li>Archivo editable</li><li>Cambios de datos y contacto</li><li>Agregar o quitar información</li><li>Fechas, cursos o experiencias</li></ul><div class="price-note"><strong>Importante:</strong> este precio aplica cuando el archivo puede editarse correctamente. Si solo tenés el CV en PDF o imagen y es necesario volver a armarlo, corresponde Reconstruir + actualizar por $12.000.</div><button class="btn" onclick="startService('update')">Quiero actualizarlo</button></div>
+<div class="card"><span class="label">Solo tengo PDF o imagen</span><h3>Reconstruir + actualizar</h3><p>Para CV en PDF, imagen o archivos que no pueden editarse correctamente.</p><div class="price">$12.000</div><ul><li>Reconstrucción de la estructura</li><li>Corrección y actualización de datos</li><li>Mantener o cambiar diseño</li><li>PDF final listo para enviar</li></ul><button class="btn" onclick="startService('rebuild')">Reconstruir mi CV</button></div>
 <div class="card"><span class="label">Necesito empezar de cero</span><h3>CV Profesional</h3><p>Creamos tu currículum y organizamos toda tu información.</p><div class="price">$18.000</div><ul><li>Con o sin experiencia</li><li>Orientación a un sector</li><li>Redacción y organización</li><li>1 ronda de correcciones</li></ul><button class="btn" onclick="startService('new')">Crear mi CV</button></div>
 </div></div></section>
 
@@ -247,12 +249,16 @@ const CONFIG = {
 };
 
 const templates=[
- {id:"ats-classic",name:"ATS Clásico",desc:"Una columna, limpio y directo."},
- {id:"ats-modern",name:"ATS Moderno",desc:"Estructura simple con jerarquía moderna."},
+ {id:"ats-classic",name:"ATS Clásico",desc:"Estructura simple y legible para procesos de selección."},
+ {id:"ats-modern",name:"ATS Moderno",desc:"Diseño claro, ordenado y fácil de leer."},
  {id:"professional",name:"Profesional",desc:"Presentación equilibrada y visual."},
  {id:"minimal",name:"Minimalista",desc:"Sobrio, espacioso y elegante."}
 ];
 let state={service:null,step:0,firstJob:false,template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
+const STATE_DRAFT_PREFIX="cve_state_";
+function draftKey(){return state.service?`${STATE_DRAFT_PREFIX}${state.service}`:""}
+function saveStateDraft(){try{const k=draftKey();if(k)localStorage.setItem(k,JSON.stringify(state))}catch(e){}}
+function clearDraft(){try{const k=draftKey();if(k)localStorage.removeItem(k);if(state.service)localStorage.removeItem(`cve_v9_draft_${state.service}`)}catch(e){}}
 
 const CVE_PREVIEWS={
 "ATS Clásico":`<div class="cvmini"><h4>Martina Pérez</h4><em>Administración · Atención al cliente</em><h5>Perfil</h5><div class="cvline"></div><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Asistente administrativa</b><div class="cvline"></div><div class="cvline s"></div><b>Atención al cliente</b><div class="cvline"></div><div class="cvline xs"></div><h5>Educación</h5><div class="cvline s"></div></div>`,
@@ -263,11 +269,12 @@ const CVE_PREVIEWS={
 
 function startService(service,mode){
  state={service,step:0,firstJob:mode==="first",template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
+ try{const saved=JSON.parse(localStorage.getItem(`${STATE_DRAFT_PREFIX}${service}`)||"null");if(saved&&saved.service===service)state={...state,...saved,service,firstJob:mode==="first"||saved.firstJob}}catch(e){}
  document.getElementById("overlay").classList.add("open"); render();
 }
 function closeModal(){document.getElementById("overlay").classList.remove("open")}
 function title(){
- return state.service==="update"?"Actualizar mi CV":state.service==="rebuild"?"Reconstruir + actualizar":"Crear CV Profesional";
+ return state.service==="update"?"Actualizar CV":state.service==="rebuild"?"Reconstruir + actualizar":"Crear CV Profesional";
 }
 function stepsCount(){return state.service==="new"?6:state.service==="rebuild"?4:3}
 function render(){
@@ -278,7 +285,31 @@ function render(){
 }
 function val(id){let e=document.getElementById(id);return e?e.value.trim():""}
 function saveCommon(){["name","phone","email","city","changes","sector","role","profile","skills","languages","license","other"].forEach(k=>{let e=document.getElementById(k);if(e)state.data[k]=e.value.trim()})}
-function nav(delta){saveCommon();state.step+=delta;render()}
+function nav(delta){saveCommon();saveStateDraft();state.step+=delta;render()}
+function clearErrors(){
+ document.querySelectorAll(".field-error").forEach(e=>e.classList.remove("field-error"));
+ document.querySelectorAll(".field-msg").forEach(e=>e.remove());
+}
+function requireFields(ids){
+ clearErrors();
+ let first=null;
+ ids.forEach(id=>{
+   const el=document.getElementById(id);
+   if(el && !el.value.trim()){
+     el.classList.add("field-error");
+     el.insertAdjacentHTML("afterend",'<div class="field-msg">Completá este dato para continuar.</div>');
+     if(!first) first=el;
+   }
+ });
+ if(first){first.focus();first.scrollIntoView({block:"center",behavior:"smooth"});return false}
+ return true;
+}
+function validateStep(){
+ if(state.service==="update"&&state.step===0)return requireFields(["name","phone","changes"]);
+ if(state.service==="rebuild"&&((state.step===1&&(state.design||"similar")==="similar")||state.step===2))return requireFields(["name","phone","changes"]);
+ if(state.service==="new"&&state.step===3)return requireFields(["name","phone"]);
+ return true;
+}
 function choices(items,key,current){
  return `<div class="choice-grid">${items.map(x=>`<div class="choice ${current===x[0]?'active':''}" onclick="state.${key}='${x[0]}';render()"><strong>${x[1]}</strong><small>${x[2]||''}</small></div>`).join("")}</div>`;
 }
@@ -315,13 +346,14 @@ function renderNew(){
 }
 function nextBtn(label,back=false){return `<div class="form-actions">${back?'<button class="btn secondary" onclick="nav(-1)">Atrás</button>':'<span></span>'}<button class="btn" onclick="advance()">${label} →</button></div>`}
 function advance(){
+ if(!validateStep())return;
  saveCommon();
  if(state.service==="new"&&state.step===0&&!state.situation)state.situation=state.firstJob?"first":"experienced";
  if(state.service==="rebuild"&&state.step===0&&!state.design)state.design="similar";
  if(state.service==="new"&&state.step===3)saveRepeats();
  if(state.service==="new"&&state.step===4){state.data.coursesText=val("coursesText")}
- if(state.step===stepsCount()-1){state._reviewed=true;render();return}
- state.step++;render();
+ if(state.step===stepsCount()-1){state._reviewed=true;saveStateDraft();render();return}
+ state.step++;saveStateDraft();render();
 }
 function templateChooser(){return `<h3>Elegí un modelo</h3><p class="hint">Vas a poder ajustar detalles durante el armado.</p><div class="template-grid">${templates.map(t=>`<div class="card template ${state.template===t.id?'selected':''}" style="padding:0" onclick="state.template='${t.id}';render()"><div class="template-preview">${CVE_PREVIEWS[t.name]}</div><strong>${t.name}</strong><div class="hint">${t.desc}</div></div>`).join("")}</div>`}
 function addRepeat(type){saveRepeats();state[type].push({a:"",b:"",c:"",d:""});render()}
@@ -338,19 +370,22 @@ function repeatHTML(type){
 }
 function saveRepeats(){
  document.querySelectorAll("[data-type]").forEach(e=>{let t=e.dataset.type,i=+e.dataset.i,k=e.dataset.k;if(state[t]&&state[t][i])state[t][i][k]=e.value.trim()});
+ saveStateDraft();
 }
 function reviewHTML(){
  saveCommon(); saveRepeats();
- return `<h3>Revisá antes de continuar</h3><p class="hint">Esto es lo que se preparará para WhatsApp. Podés volver atrás si necesitás corregir algo.</p><div class="summary">${esc(buildMessage(false))}</div><div class="form-actions"><button class="btn secondary" onclick="state.step=Math.max(0,state.step-1);render()">Corregir datos</button><button class="btn" onclick="state._reviewed=true;render()">Continuar al pago →</button></div>`;
+ const next=state.service==="update"?"Continuar a WhatsApp →":"Continuar al pago →";
+ const action=(state.service==="update"||(state.service==="rebuild"&&state.step===2))?"state._reviewed=true;state.step++;saveStateDraft();render()":"state._reviewed=true;saveStateDraft();render()";
+ return `<h3>Revisá antes de continuar</h3><p class="hint">Esto es lo que se preparará para WhatsApp. Podés volver atrás si necesitás corregir algo.</p><div class="summary">${esc(buildMessage(false))}</div><div class="form-actions"><button class="btn secondary" onclick="state.step=Math.max(0,state.step-1);saveStateDraft();render()">Corregir datos</button><button class="btn" onclick="${action}">${next}</button></div>`;
 }
 function paymentHTML(updateReview){
  let price=CONFIG.prices[state.service];
  return `<div class="paybox"><span class="label">Último paso</span><h3 style="margin-top:10px">${title()}</h3><div class="price" style="font-size:32px">${price}</div>
  ${state.service==="update"?
  `<p>Primero envianos la solicitud y tu CV actual. Confirmaremos si corresponde edición simple o reconstrucción.</p>`:
- `<p>Para confirmar el trabajo, transferí a:</p><div class="alias">${CONFIG.alias}</div><button class="btn secondary" onclick="copyAlias()">Copiar alias</button>`}</div>
+ `<p>Servicio: <strong>${title()}</strong><br>Importe: <strong>${price}</strong><br>Transferí al alias:</p><div class="alias">${CONFIG.alias}</div><button class="btn secondary" onclick="copyAlias()">Copiar alias</button>`}</div>
  <div class="notice">${state.service==="update"?"No pagues todavía: primero revisamos tu archivo y te confirmamos el valor final.":"El trabajo comienza una vez recibido el mensaje y confirmado el pago."}</div>
- ${state.service==="update"?"":`<div class="checkrow"><input type="checkbox" id="paid" onchange="document.getElementById('waBtn').disabled=!this.checked"><label for="paid" style="font-weight:600">Ya realicé la transferencia. Enviaré el comprobante en WhatsApp.</label></div>`}
+ ${state.service==="update"?"":`<div class="checkrow"><input type="checkbox" id="paid" onchange="document.getElementById('waBtn').disabled=!this.checked"><label for="paid" style="font-weight:600">Declaro que realicé la transferencia a ${CONFIG.alias}. Enviaré el comprobante por WhatsApp.</label></div>`}
  <button class="btn" id="waBtn" ${state.service==="update"?"":"disabled"} style="width:100%" onclick="sendWhatsApp()">${state.service==="update"?"Enviar CV para revisión":"Enviar solicitud por WhatsApp"}</button>
  <div class="secure-note">Tu información no se guarda en esta web: se prepara en tu navegador y se envía cuando vos decidís.</div><p class="hint" style="text-align:center">WhatsApp se abrirá con el texto preparado. Enviá ese mensaje y luego adjuntá el comprobante. Si corresponde, adjuntá también tu CV actual, foto o aviso laboral.</p>`;
 }
@@ -361,7 +396,7 @@ function buildMessage(withPayment=true){
  let d=state.data, s=`📄 SOLICITUD — ${serviceName()}\n\n`;
  s+=`👤 DATOS\nNombre: ${d.name||"-"}\nWhatsApp: ${d.phone||"-"}\nEmail: ${d.email||"-"}\nLocalidad: ${d.city||"-"}\n\n`;
  if(state.service==="update"){
-   s+=`✏️ CAMBIOS SOLICITADOS\n${d.changes||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n• CV actual\n${withPayment?"• Comprobante de transferencia\n":""}`;
+   s+=`✏️ CAMBIOS SOLICITADOS\n${d.changes||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n• CV actual en archivo editable\n\nACLARACIÓN\nEntiendo que primero revisan si el archivo puede editarse correctamente antes de confirmar el valor final.`;
  } else if(state.service==="rebuild"){
    s+=`🎨 DISEÑO\n${(state.design||"similar")==="similar"?"Mantener estilo similar":"Nuevo modelo: "+templateName()}\n\n📝 CAMBIOS SOLICITADOS\n${d.changes||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n• CV actual\n${withPayment?"• Comprobante de transferencia\n":""}`;
  } else {
@@ -369,19 +404,20 @@ function buildMessage(withPayment=true){
    s+=`💼 EXPERIENCIA / ACTIVIDADES\n${cleanRows(state.experiences,"exp")||"Sin información cargada"}\n\n🎓 ESTUDIOS\n${cleanRows(state.studies,"study")||"Sin información cargada"}\n\n`;
    s+=`📚 CURSOS\n${d.coursesText||"-"}\n\n🛠 HABILIDADES\n${d.skills||"-"}\n\n🌎 IDIOMAS\n${d.languages||"-"}\n\n🚗 LICENCIA\n${d.license||"-"}\n\n📝 OTROS DATOS\n${d.other||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n${withPayment?"• Comprobante de transferencia\n":""}• Foto, si desea utilizarla\n• Aviso laboral, si quiere orientar el CV a una oferta concreta\n`;
  }
- if(withPayment && state.service!=="update")s+=`\n💳 PAGO\nIndiqué en la web que realicé la transferencia. Adjunto el comprobante a continuación.`;
+ if(withPayment && state.service!=="update")s+=`\n💳 PAGO\nServicio contratado: ${title()}\nImporte: ${CONFIG.prices[state.service]}\nAlias: ${CONFIG.alias}\nDeclaro que realicé la transferencia. Adjunto el comprobante a continuación por WhatsApp.`;
  return s;
 }
 function sendWhatsApp(){
  let msg=buildMessage(true);
  let waNumber=CONFIG.whatsappParts.join(""); let url=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+ clearDraft();
  window.open(url,"_blank","noopener");
 }
 function copyAlias(){navigator.clipboard.writeText(CONFIG.alias).then(()=>toast("Alias copiado: "+CONFIG.alias)).catch(()=>prompt("Copiá el alias:",CONFIG.alias))}
 function toast(t){let e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",1800)}
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 
-window.addEventListener("beforeunload",()=>{try{localStorage.setItem("cvDraft",JSON.stringify(state))}catch(e){}});
+window.addEventListener("beforeunload",saveStateDraft);
 
 document.getElementById("overlay").addEventListener("click",e=>{
   if(e.target.id==="overlay") closeModal();
@@ -404,18 +440,19 @@ document.addEventListener("keydown",e=>{
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ov)ov.classList.remove("open")});
 
  // Borrador: guarda valores visibles del formulario localmente y los restaura al redibujar el modal.
- const KEY="cve_v9_draft";
+ const KEY_BASE="cve_v9_draft_";
+ const getKey=()=>state.service?`${KEY_BASE}${state.service}`:"";
  function save(){
-   try{const d={};document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;d[k]=el.type==="checkbox"?el.checked:el.value});localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}
+   try{const key=getKey();if(!key)return;const d={};document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;d[k]=el.type==="checkbox"?el.checked:el.value});localStorage.setItem(key,JSON.stringify(d));saveCommon();saveRepeats();saveStateDraft();}catch(e){}
  }
  function restore(){
-   try{const d=JSON.parse(localStorage.getItem(KEY)||"{}");document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;if(k in d&&!el.value){if(el.type==="checkbox")el.checked=!!d[k];else el.value=d[k]}});}catch(e){}
+   try{const key=getKey();if(!key)return;const d=JSON.parse(localStorage.getItem(key)||"{}");document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;if(k in d&&!el.value){if(el.type==="checkbox")el.checked=!!d[k];else el.value=d[k]}});}catch(e){}
  }
  const overlay=document.getElementById("overlay");
  if(overlay){overlay.addEventListener("input",()=>{clearTimeout(window.__cveT);window.__cveT=setTimeout(save,300)});new MutationObserver(()=>setTimeout(restore,25)).observe(overlay,{childList:true,subtree:true});}
 
  // Enlace de WhatsApp flotante, contextual según la sección visible.
- const q=document.getElementById("quickWhatsApp");
+ const q=document.getElementById("quickWhatsAppDisabled");
  if(q){
    const num=(CONFIG.whatsappParts||[]).join("");
    const refresh=()=>{let topic="el servicio de CV";const y=scrollY+innerHeight*.45,a=document.getElementById("servicios"),b=document.getElementById("plantillas"),f=document.getElementById("faq");if(a&&y>=a.offsetTop)topic="qué opción de CV me conviene";if(b&&y>=b.offsetTop)topic="los modelos de CV";if(f&&y>=f.offsetTop)topic="el servicio de CV";q.href=`https://wa.me/${num}?text=${encodeURIComponent(`Hola, vengo desde la página de CVE — Tu CV listo. Quería consultar sobre ${topic}.`)}`};refresh();addEventListener("scroll",refresh,{passive:true});
@@ -423,7 +460,7 @@ document.addEventListener("keydown",e=>{
 })();
 </script>
 
-<a class="wa-float" id="quickWhatsApp" href="https://wa.me/5492646706973?text=Hola%2C%20vengo%20desde%20la%20p%C3%A1gina%20de%20CVE%20%E2%80%94%20Tu%20CV%20listo.%20Quer%C3%ADa%20consultar%20sobre%20el%20servicio%20de%20CV." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+<a class="wa-float" id="quickWhatsApp" href="https://wa.me/5492646706973?text=Hola%2C%20vengo%20desde%20la%20landing%20de%20CVE%20%E2%80%94%20Tu%20CV%20listo.%20Quer%C3%ADa%20hacer%20una%20consulta%20sobre%20el%20servicio%20de%20CV." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
   <span class="wa-icon" aria-hidden="true">
     <svg viewBox="0 0 32 32" role="img"><path d="M16.04 3C9.39 3 4 8.24 4 14.7c0 2.3.7 4.54 2.01 6.44L4.1 28l7.19-1.83a12.32 12.32 0 0 0 4.74.94h.01C22.68 27.11 28 21.87 28 15.4 28 8.94 22.68 3 16.04 3Zm0 21.95h-.01a10.2 10.2 0 0 1-4.3-.96l-.31-.15-4.27 1.09 1.14-4.04-.2-.32a9.57 9.57 0 0 1-1.52-5.16c0-5.29 4.25-9.59 9.48-9.59 5.23 0 9.48 4.3 9.48 9.59 0 5.29-4.26 9.54-9.49 9.54Zm5.2-7.17c-.28-.14-1.68-.82-1.94-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.73-1.41-1.64-1.57-1.92-.17-.28-.02-.43.12-.57.13-.13.28-.33.43-.49.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.49-.07-.14-.64-1.53-.88-2.1-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43 0 1.43 1.04 2.81 1.19 3 .14.19 2.05 3.12 4.97 4.37.69.3 1.24.48 1.66.61.7.22 1.33.19 1.83.12.56-.08 1.68-.68 1.92-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33Z"/></svg>
   </span>
@@ -444,7 +481,7 @@ document.addEventListener("keydown",e=>{
     if(services&&y>=services.offsetTop) topic="qué opción de CV me conviene";
     if(templates&&y>=templates.offsetTop) topic="los modelos de CV";
     if(faq&&y>=faq.offsetTop) topic="el servicio de CV";
-    q.href=`https://wa.me/${num}?text=${encodeURIComponent(`Hola, vengo desde la página de CVE — Tu CV listo. Quería consultar sobre ${topic}.`)}`;
+    q.href=`https://wa.me/${num}?text=${encodeURIComponent(`Hola, vengo desde la landing de CVE — Tu CV listo. Quería hacer una consulta sobre ${topic}.`)}`;
   };
   refresh();
   addEventListener("scroll",refresh,{passive:true});
