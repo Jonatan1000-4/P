@@ -67,6 +67,8 @@ section+section{border-top:1px solid var(--line)}
 .template-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .template{padding:0;border:0;cursor:pointer}
 .template-preview{aspect-ratio:.72;background:#fff;border:1px solid var(--line);padding:0;overflow:hidden;margin-bottom:14px;position:relative;transition:border-color .18s ease}
+.template-img{width:100%;height:100%;object-fit:cover;display:block}
+.template-fallback{height:100%}
 .template:hover .template-preview{border-color:var(--ink)}
 .template-preview:after{content:"Ver más grande";position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:8px;font-size:11px;text-align:center;opacity:0;transition:.18s;transform:translateY(4px)}
 .template:hover .template-preview:after{opacity:1;transform:translateY(0)}
@@ -144,7 +146,9 @@ textarea{min-height:96px;resize:vertical}
 .cvline.s{width:62%}.cvline.xs{width:42%}
 .preview-overlay{position:fixed;inset:0;background:rgba(16,16,16,.55);z-index:160;display:none;align-items:center;justify-content:center;padding:20px}
 .preview-overlay.open{display:flex}
-.preview-paper{width:min(430px,88vw);aspect-ratio:.707;background:#fff;padding:32px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.28)}
+.preview-paper{width:min(430px,88vw);aspect-ratio:.707;background:#fff;padding:0;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.28);overflow:hidden}
+.preview-paper .template-img,.preview-paper .template-fallback{width:100%;height:100%}
+.preview-paper .template-fallback{padding:32px}
 .preview-paper .cvmini{font-size:10px}.preview-paper .cvmini h4{font-size:24px}.preview-paper .cvmini h5{font-size:10px}
 .preview-close{position:absolute;right:-14px;top:-14px;width:36px;height:36px;border:0;border-radius:50%;background:var(--ink);color:#fff;font-size:20px;cursor:pointer;z-index:2}
 
@@ -249,10 +253,10 @@ const CONFIG = {
 };
 
 const templates=[
- {id:"ats-classic",name:"ATS Clásico",desc:"Estructura simple y legible para procesos de selección."},
- {id:"ats-modern",name:"ATS Moderno",desc:"Diseño claro, ordenado y fácil de leer."},
- {id:"professional",name:"Profesional",desc:"Presentación equilibrada y visual."},
- {id:"minimal",name:"Minimalista",desc:"Sobrio, espacioso y elegante."}
+ {id:"ats-classic",name:"ATS Clásico",desc:"Estructura simple y legible para procesos de selección.",img:"modelo-ats-clasico.jpg"},
+ {id:"ats-modern",name:"ATS Moderno",desc:"Diseño claro, ordenado y fácil de leer.",img:"modelo-ats-moderno.jpg"},
+ {id:"professional",name:"Profesional",desc:"Presentación equilibrada y visual.",img:"modelo-profesional.jpg"},
+ {id:"minimal",name:"Minimalista",desc:"Sobrio, espacioso y elegante.",img:"modelo-minimalista.jpg"}
 ];
 let state={service:null,step:0,firstJob:false,template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
 const STATE_DRAFT_PREFIX="cve_state_";
@@ -266,6 +270,11 @@ const CVE_PREVIEWS={
 "Profesional":`<div class="cvmini"><h4>Sofía Ramírez</h4><em>Ventas · Atención comercial</em><h5>Perfil profesional</h5><div class="cvline"></div><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Asesora comercial</b><div class="cvline"></div><div class="cvline"></div><div class="cvline xs"></div><h5>Habilidades</h5><div class="cvline s"></div></div>`,
 "Minimalista":`<div class="cvmini"><h4>Tomás Fernández</h4><em>Técnico · Mantenimiento</em><h5>Sobre mí</h5><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Técnico de mantenimiento</b><div class="cvline"></div><div class="cvline"></div><h5>Estudios y cursos</h5><div class="cvline s"></div><div class="cvline xs"></div></div>`
 };
+function templateFallback(name){return `<div class="template-fallback">${CVE_PREVIEWS[name]||""}</div>`}
+function templateImage(t){
+ return `<img class="template-img" src="${esc(t.img)}" alt="Modelo ${esc(t.name)}" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)">${templateFallback(t.name)}`;
+}
+function templateByName(name){return templates.find(t=>t.name===name)||templates[0]}
 
 function startService(service,mode){
  state={service,step:0,firstJob:mode==="first",template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
@@ -355,7 +364,7 @@ function advance(){
  if(state.step===stepsCount()-1){state._reviewed=true;saveStateDraft();render();return}
  state.step++;saveStateDraft();render();
 }
-function templateChooser(){return `<h3>Elegí un modelo</h3><p class="hint">Vas a poder ajustar detalles durante el armado.</p><div class="template-grid">${templates.map(t=>`<div class="card template ${state.template===t.id?'selected':''}" style="padding:0" onclick="state.template='${t.id}';render()"><div class="template-preview">${CVE_PREVIEWS[t.name]}</div><strong>${t.name}</strong><div class="hint">${t.desc}</div></div>`).join("")}</div>`}
+function templateChooser(){return `<h3>Elegí un modelo</h3><p class="hint">Vas a poder ajustar detalles durante el armado.</p><div class="template-grid">${templates.map(t=>`<div class="card template ${state.template===t.id?'selected':''}" style="padding:0" onclick="state.template='${t.id}';render()"><div class="template-preview">${templateImage(t)}</div><strong>${t.name}</strong><div class="hint">${t.desc}</div></div>`).join("")}</div>`}
 function addRepeat(type){saveRepeats();state[type].push({a:"",b:"",c:"",d:""});render()}
 function removeRepeat(type,i){saveRepeats();state[type].splice(i,1);render()}
 function repeatHTML(type){
@@ -430,9 +439,9 @@ document.addEventListener("keydown",e=>{
  const names=["ATS Clásico","ATS Moderno","Profesional","Minimalista"];
  const box=document.getElementById("landingTemplates");
  if(box){
-   box.innerHTML=names.map(n=>`<div class="template" role="button" tabindex="0" data-cve-template="${n}"><div class="template-preview">${CVE_PREVIEWS[n]}</div><strong>${n}</strong></div>`).join("");
+   box.innerHTML=names.map(n=>{const t=templateByName(n);return `<div class="template" role="button" tabindex="0" data-cve-template="${n}"><div class="template-preview">${templateImage(t)}</div><strong>${n}</strong><div class="hint">${t.desc}</div></div>`}).join("");
    box.querySelectorAll("[data-cve-template]").forEach(el=>{
-     const open=()=>{const ov=document.getElementById("cvePreview"),p=document.getElementById("cvePreviewPaper");p.innerHTML=`<button class="preview-close" type="button" aria-label="Cerrar">×</button>${CVE_PREVIEWS[el.dataset.cveTemplate]}`;ov.classList.add("open");p.querySelector(".preview-close").onclick=()=>ov.classList.remove("open");};
+     const open=()=>{const ov=document.getElementById("cvePreview"),p=document.getElementById("cvePreviewPaper"),t=templateByName(el.dataset.cveTemplate);p.innerHTML=`<button class="preview-close" type="button" aria-label="Cerrar">×</button>${templateImage(t)}`;ov.classList.add("open");p.querySelector(".preview-close").onclick=()=>ov.classList.remove("open");};
      el.addEventListener("click",open);el.addEventListener("keydown",e=>{if(e.key==="Enter"){open();}});
    });
  }
