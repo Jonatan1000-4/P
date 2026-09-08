@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CVE — Tu CV listo | Currículums profesionales</title>
+<meta name="description" content="Actualizá, reconstruí o creá tu CV. Elegí tu servicio, completá tus datos y enviá todo por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;--ink:#101010;--muted:#767676;--muted-2:#9A9A9A;--line:#EBEBEB;
+  --accent:#15412C;--accent-soft:#EFF4F1;
+  --sans:'Inter',Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+.wrap{width:min(1120px,calc(100% - 48px));margin:auto}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-weight:700;font-size:16px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.brand-mark{display:inline-grid;place-items:center;width:26px;height:26px;background:var(--ink);color:#fff;border-radius:6px;font-weight:700;font-size:10px}
+.brand em{font-style:normal;color:var(--muted);font-weight:400;margin-left:2px}
+.navlinks{display:flex;align-items:center;gap:28px}
+.navlinks a{font-size:14px;color:var(--muted);text-decoration:none}
+.navlinks a:hover{color:var(--ink)}
+.btn{border:1px solid var(--ink);border-radius:8px;padding:12px 20px;background:var(--ink);color:#fff;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:8px;font-size:14.5px;transition:opacity .15s ease,transform .1s ease}
+.btn:hover{opacity:.82}
+.btn:active{transform:translateY(1px)}
+.btn.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.secondary:hover{opacity:1;border-color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:transparent;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ---- Hero ---- */
+.hero{padding:120px 0 88px}
+.hero .wrap{max-width:760px}
+.eyebrow{font-size:14px;color:var(--muted);margin:0 0 18px}
+h1{font-weight:700;font-size:clamp(38px,5.6vw,60px);line-height:1.05;letter-spacing:-.03em;margin:0 0 22px}
+h2{font-weight:700;font-size:clamp(26px,3.4vw,32px);line-height:1.2;letter-spacing:-.02em;margin:0 0 12px}
+h3{font-weight:600;font-size:19px;margin:0 0 8px;letter-spacing:-.01em}
+.hero p,.sectionhead p{font-size:17px;color:var(--muted);max-width:52ch;margin:0 0 32px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.trust{display:flex;gap:28px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);padding-top:28px;border-top:1px solid var(--line)}
+.trust b{color:var(--ink);font-weight:600}
+
+/* ---- Sections ---- */
+section{padding:80px 0}
+section+section{border-top:1px solid var(--line)}
+.sectionhead{margin-bottom:48px;max-width:56ch}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:#fff;padding:36px 32px;display:flex;flex-direction:column}
+.card p{color:var(--muted);font-size:14.5px;margin:0 0 20px}
+.card ul{padding-left:0;list-style:none;color:#3d3d3d;font-size:14px;margin:0 0 24px;flex:1}
+.card ul li{margin-bottom:9px;padding-left:18px;position:relative}
+.card ul li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--ink)}
+.card .price{font-size:30px;font-weight:700;margin:2px 0 18px;letter-spacing:-.02em}
+.card .btn{width:100%}
+.label{font-size:12.5px;color:var(--muted);text-transform:none;margin-bottom:14px;display:block}
+.tag{display:inline-block;font-size:11.5px;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:20px;font-weight:600;margin-bottom:14px;width:fit-content}
+.price-note{margin-top:0;margin-bottom:20px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;font-size:13px;line-height:1.55;color:#4a4a4a}
+.price-note strong{color:var(--ink)}
+
+.template-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.template{padding:0;border:0;cursor:pointer}
+.template-preview{aspect-ratio:.72;background:#fff;border:1px solid var(--line);padding:0;overflow:hidden;margin-bottom:14px;position:relative;transition:border-color .18s ease}
+.template:hover .template-preview{border-color:var(--ink)}
+.template-preview:after{content:"Ver más grande";position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:8px;font-size:11px;text-align:center;opacity:0;transition:.18s;transform:translateY(4px)}
+.template:hover .template-preview:after{opacity:1;transform:translateY(0)}
+.template strong{font-size:14.5px;font-weight:600;display:block}
+.template .hint{color:var(--muted);font-size:13px;margin-top:2px}
+.template.selected .template-preview{outline:2px solid var(--ink);outline-offset:3px;border-color:transparent}
+.template-note{margin-top:32px;font-size:13.5px;color:var(--muted)}
+
+.callout{display:grid;grid-template-columns:1.5fr .7fr;align-items:center;gap:40px}
+.callout p{color:var(--muted);margin-bottom:0}
+.callout .btn{width:100%}
+
+.faq{max-width:760px}
+.faq details{border-top:1px solid var(--line);padding:22px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";color:var(--muted);font-weight:400;font-size:20px;flex-shrink:0}
+.faq details[open] summary:after{content:"–"}
+.faq p{color:var(--muted);font-size:15px;margin:14px 0 0}
+
+footer{padding:40px 0;color:var(--muted-2);font-size:13.5px;border-top:1px solid var(--line)}
+
+/* ---- Modal / booking flow ---- */
+.overlay{position:fixed;inset:0;background:rgba(16,16,16,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
+.overlay.open{display:flex}
+.modal{width:min(720px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:12px;padding:32px;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.modal.wide{width:min(860px,100%)}
+.modalhead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:20px}
+.close{border:1px solid var(--line);background:#fff;width:36px;height:36px;border-radius:50%;font-size:19px;cursor:pointer}
+.close:hover{border-color:var(--ink)}
+.progress{height:2px;background:var(--line);margin-bottom:28px}
+.progress i{display:block;height:100%;background:var(--ink);transition:width .3s ease}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px 13px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink)}
+textarea{min-height:96px;resize:vertical}
+.hint,.secure-note{font-size:12.5px;color:var(--muted);margin-top:6px}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.choice{border:1px solid var(--line);border-radius:8px;padding:16px;cursor:pointer}
+.choice.active{border-color:var(--ink)}
+.choice strong{display:block;font-size:14px}
+.choice small{color:var(--muted);font-size:12px}
+.form-actions{display:flex;justify-content:space-between;gap:10px;margin-top:28px}
+.repeat{border-top:1px solid var(--line);padding:18px 0}
+.repeat-head{display:flex;justify-content:space-between}
+.linkbtn{border:0;background:transparent;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--ink);font-size:13px}
+.summary{background:#FAFAFA;border:1px solid var(--line);border-radius:8px;padding:18px;white-space:pre-wrap;font-size:13px;max-height:330px;overflow:auto}
+.paybox{border:1px solid var(--line);border-radius:10px;padding:26px;text-align:center}
+.alias{font-size:26px;font-weight:700;margin:10px 0;letter-spacing:-.01em}
+.checkrow{display:flex;gap:10px;align-items:flex-start;margin:18px 0}
+.checkrow input{width:auto;margin-top:4px}
+.notice{padding:13px 15px;border:1px solid var(--line);border-radius:8px;color:#4a4a4a;font-size:13px;margin:16px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;display:none;z-index:200;font-size:14px}
+.mobile-cta{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:40}
+.saved-note{font-size:11px;color:var(--muted);margin:8px 0}
+
+/* ---- WhatsApp float ---- */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;align-items:center;gap:10px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:9px 16px 9px 9px;text-decoration:none;box-shadow:0 8px 24px rgba(16,16,16,.12);font-size:13.5px;font-weight:600}
+.wa-float .wa-icon{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#1F8A5A;color:#fff}
+.wa-float svg{width:18px;height:18px;display:block;fill:currentColor}
+.wa-float small{display:block;color:var(--muted);font-size:10.5px;font-weight:400;line-height:1.1;margin-top:1px}
+@media(hover:hover) and (pointer:fine){.wa-float{transition:box-shadow .18s ease}.wa-float:hover{box-shadow:0 12px 30px rgba(16,16,16,.16)}}
+
+/* ---- CV preview thumbnails ---- */
+.cvmini{height:100%;background:#fff;padding:12px;color:#333;font-size:6px;line-height:1.3}
+.cvmini h4{font-size:13px;margin:0 0 2px;font-weight:700;letter-spacing:-.01em}
+.cvmini em{font-style:normal;color:#888}
+.cvmini h5{font-size:6px;margin:9px 0 4px;letter-spacing:.06em;color:var(--muted)}
+.cvline{height:3px;background:#EDEDED;margin:4px 0}
+.cvline.s{width:62%}.cvline.xs{width:42%}
+.preview-overlay{position:fixed;inset:0;background:rgba(16,16,16,.55);z-index:160;display:none;align-items:center;justify-content:center;padding:20px}
+.preview-overlay.open{display:flex}
+.preview-paper{width:min(430px,88vw);aspect-ratio:.707;background:#fff;padding:32px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.28)}
+.preview-paper .cvmini{font-size:10px}.preview-paper .cvmini h4{font-size:24px}.preview-paper .cvmini h5{font-size:10px}
+.preview-close{position:absolute;right:-14px;top:-14px;width:36px;height:36px;border:0;border-radius:50%;background:var(--ink);color:#fff;font-size:20px;cursor:pointer;z-index:2}
+
+@media(max-width:780px){
+  .grid3{grid-template-columns:1fr}
+  .template-grid{grid-template-columns:1fr 1fr}
+  .callout{grid-template-columns:1fr;gap:24px}
+  .navlinks a:not(.btn){display:none}
+  .choice-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  section{padding:56px 0}
+  .hero{padding:64px 0 48px}
+}
+@media(max-width:540px){
+  body{padding-bottom:68px}
+  nav{height:60px}
+  .brand em{display:none}
+  .navlinks .btn{display:none}
+  .hero p{font-size:15.5px}
+  .trust{gap:12px 20px}
+  .mobile-cta{display:flex}
+  .modal{padding:20px;border-radius:10px}
+  .modalhead h2{font-size:24px}
+  .form-actions{flex-direction:column-reverse}
+  .form-actions .btn{width:100%}
+  .wa-float{right:14px;bottom:82px;width:48px;height:48px;padding:8px;border-radius:50%;justify-content:center}
+  .wa-float .wa-icon{width:32px;height:32px}
+  .wa-float .wa-copy{display:none}
+}
+@media(max-width:380px){
+  .actions .btn{width:100%}
+  .template-grid{grid-template-columns:1fr}
+  .preview-paper{width:min(300px,88vw);padding:22px}
+  .preview-close{right:-8px;top:-8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav>
+<div class="brand"><span class="brand-mark">CVE</span>CVE<em>— Tu CV listo</em></div>
+<div class="navlinks"><a href="#servicios">Servicios</a><a href="#plantillas">Modelos</a><a href="#faq">Preguntas</a><button class="btn" onclick="startService('new')">Hacer mi CV</button></div>
+</nav></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+<p class="eyebrow">Servicio de armado y actualización de CV</p>
+<h1>¿Necesitás hacer o actualizar tu CV?</h1>
+<p>Elegí tu caso y completá la información necesaria. Al final, se prepara todo para enviarlo por WhatsApp.</p>
+<div class="actions"><button class="btn" onclick="document.querySelector('#servicios').scrollIntoView()">Ver opciones</button><button class="btn secondary" onclick="startService('new','first')">Necesito mi primer CV</button></div>
+<div class="trust"><span><b>Proceso claro</b> — sabés qué esperar en cada paso</span><span><b>Entrega en PDF</b> — listo para enviar o imprimir</span><span><b>Contacto por WhatsApp</b> — sin registros ni cuentas</span></div>
+</div></section>
+
+<section id="servicios">
+<div class="wrap">
+<div class="sectionhead"><h2>¿Qué necesitás?</h2><p>Elegí la opción que más se parezca a tu caso.</p></div>
+<div class="grid3">
+<div class="card"><span class="label">Ya tengo un CV editable</span><h3>Actualizar mi CV</h3><p>Para modificar información de un currículum existente.</p><div class="price">$7.000</div><div class="price-note"><strong>Importante:</strong> este precio aplica cuando el CV está en un archivo realmente editable. Si solo tenés el CV en PDF o imagen y hay que volver a armarlo, corresponde el servicio de reconstrucción — $12.000.</div><ul><li>Datos de contacto</li><li>Agregar o quitar información</li><li>Fechas, cursos o experiencias</li><li>Revisión previa si solo tenés PDF</li></ul><button class="btn" onclick="startService('update')">Quiero actualizarlo</button></div>
+<div class="card"><span class="tag">Más elegido</span><span class="label">Solo tengo PDF o imagen</span><h3>Reconstruir + actualizar</h3><p>Si tu CV no puede editarse correctamente o querés pasarlo a otro diseño.</p><div class="price">$12.000</div><ul><li>Reconstrucción del documento</li><li>Cambios solicitados</li><li>Mantener o cambiar diseño</li><li>PDF final listo para enviar</li></ul><button class="btn" onclick="startService('rebuild')">Reconstruir mi CV</button></div>
+<div class="card"><span class="label">Necesito empezar de cero</span><h3>CV Profesional</h3><p>Creamos tu currículum y organizamos toda tu información.</p><div class="price">$18.000</div><ul><li>Con o sin experiencia</li><li>Orientación a un sector</li><li>Redacción y organización</li><li>1 ronda de correcciones</li></ul><button class="btn" onclick="startService('new')">Crear mi CV</button></div>
+</div></div></section>
+
+<section id="plantillas">
+<div class="wrap">
+<div class="sectionhead"><h2>Modelos disponibles</h2><p>Si hacés un CV nuevo o cambiás el diseño, podés elegir uno de estos estilos.</p></div>
+<div class="template-grid" id="landingTemplates"></div>
+<p class="template-note">No hace falta decidir ahora. Podés ver los modelos y elegir el diseño cuando completes la solicitud.</p>
+</div></section>
+
+<section><div class="wrap"><div class="callout">
+<div><span class="label">Primer empleo</span><h2>¿Es tu primer CV?</h2><p>No hace falta tener experiencia formal. Podemos organizar estudios, cursos, conocimientos y trabajos informales para presentar mejor tu perfil.</p></div>
+<div><button class="btn" style="width:100%" onclick="startService('new','first')">Empezar mi primer CV</button></div>
+</div></div></section>
+
+<section id="faq"><div class="wrap">
+<div class="sectionhead"><h2>Preguntas frecuentes</h2></div>
+<div class="faq">
+<details><summary>¿Qué recibo al finalizar?<span></span></summary><p>La entrega estándar es el currículum terminado en PDF, listo para enviar o imprimir.</p></details>
+<details><summary>¿Entregan el archivo editable?<span></span></summary><p>No está incluido en la entrega estándar. Conservamos el archivo maestro para facilitar futuras actualizaciones. Si necesitás una copia editable, podés solicitarla y se cotiza por separado.</p></details>
+<details><summary>Solo tengo mi CV en PDF. ¿Qué elijo?<span></span></summary><p>Si el PDF no permite una edición correcta, corresponde reconstrucción. Si elegís "Actualizar", revisaremos el archivo antes de confirmar el trabajo.</p></details>
+</div>
+</div></section>
+</main>
+
+<footer><div class="wrap">CVE • Solicitudes y atención por WhatsApp</div></footer>
+<button class="btn mobile-cta" onclick="document.querySelector('#servicios').scrollIntoView()">Quiero hacer mi CV</button>
+
+<div class="overlay" id="overlay"><div class="modal wide" id="modal">
+<div class="modalhead"><div><span class="label" id="modalBadge">Solicitud</span><h2 id="modalTitle" style="margin-top:6px">Tu CV</h2><p id="modalSub" style="color:var(--muted);margin:0"></p></div><button class="close" onclick="closeModal()">×</button></div>
+<div class="progress"><i id="progress"></i></div><div id="modalBody"></div></div></div>
+<div class="toast" id="toast">Copiado</div>
+
+<script>
+/* CONFIGURACIÓN: reemplazá el número por tu WhatsApp en formato internacional, solo números. */
+const CONFIG = {
+  whatsappParts: ["549","264","670","6973"],
+  alias: "pagof99",
+  prices: {update:"$7.000", rebuild:"$12.000", new:"$18.000"}
+};
+
+const templates=[
+ {id:"ats-classic",name:"ATS Clásico",desc:"Una columna, limpio y directo."},
+ {id:"ats-modern",name:"ATS Moderno",desc:"Estructura simple con jerarquía moderna."},
+ {id:"professional",name:"Profesional",desc:"Presentación equilibrada y visual."},
+ {id:"minimal",name:"Minimalista",desc:"Sobrio, espacioso y elegante."}
+];
+let state={service:null,step:0,firstJob:false,template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
+
+const CVE_PREVIEWS={
+"ATS Clásico":`<div class="cvmini"><h4>Martina Pérez</h4><em>Administración · Atención al cliente</em><h5>Perfil</h5><div class="cvline"></div><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Asistente administrativa</b><div class="cvline"></div><div class="cvline s"></div><b>Atención al cliente</b><div class="cvline"></div><div class="cvline xs"></div><h5>Educación</h5><div class="cvline s"></div></div>`,
+"ATS Moderno":`<div class="cvmini"><h4>Lucas Gómez</h4><em>Logística y operaciones</em><h5>Resumen profesional</h5><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia laboral</h5><b>Operario de depósito</b><div class="cvline"></div><div class="cvline"></div><div class="cvline xs"></div><h5>Competencias</h5><div class="cvline s"></div><div class="cvline xs"></div></div>`,
+"Profesional":`<div class="cvmini"><h4>Sofía Ramírez</h4><em>Ventas · Atención comercial</em><h5>Perfil profesional</h5><div class="cvline"></div><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Asesora comercial</b><div class="cvline"></div><div class="cvline"></div><div class="cvline xs"></div><h5>Habilidades</h5><div class="cvline s"></div></div>`,
+"Minimalista":`<div class="cvmini"><h4>Tomás Fernández</h4><em>Técnico · Mantenimiento</em><h5>Sobre mí</h5><div class="cvline"></div><div class="cvline s"></div><h5>Experiencia</h5><b>Técnico de mantenimiento</b><div class="cvline"></div><div class="cvline"></div><h5>Estudios y cursos</h5><div class="cvline s"></div><div class="cvline xs"></div></div>`
+};
+
+function startService(service,mode){
+ state={service,step:0,firstJob:mode==="first",template:"ats-classic",data:{},experiences:[],studies:[],courses:[]};
+ document.getElementById("overlay").classList.add("open"); render();
+}
+function closeModal(){document.getElementById("overlay").classList.remove("open")}
+function title(){
+ return state.service==="update"?"Actualizar mi CV":state.service==="rebuild"?"Reconstruir + actualizar":"Crear CV Profesional";
+}
+function stepsCount(){return state.service==="new"?6:state.service==="rebuild"?4:3}
+function render(){
+ document.getElementById("modalTitle").textContent=title();
+ document.getElementById("modalSub").textContent= state.service==="update"?"Contanos qué necesitás cambiar.":state.service==="rebuild"?"Indicá cómo querés transformar tu CV actual.":"Vamos a reunir la información necesaria paso a paso.";
+ document.getElementById("progress").style.width=((state.step+1)/stepsCount()*100)+"%";
+ if(state.service==="new") renderNew(); else if(state.service==="rebuild") renderRebuild(); else renderUpdate();
+}
+function val(id){let e=document.getElementById(id);return e?e.value.trim():""}
+function saveCommon(){["name","phone","email","city","changes","sector","role","profile","skills","languages","license","other"].forEach(k=>{let e=document.getElementById(k);if(e)state.data[k]=e.value.trim()})}
+function nav(delta){saveCommon();state.step+=delta;render()}
+function choices(items,key,current){
+ return `<div class="choice-grid">${items.map(x=>`<div class="choice ${current===x[0]?'active':''}" onclick="state.${key}='${x[0]}';render()"><strong>${x[1]}</strong><small>${x[2]||''}</small></div>`).join("")}</div>`;
+}
+function commonContact(){
+ return `<div class="form-grid"><div><label>Nombre y apellido *</label><input id="name" value="${esc(state.data.name||'')}"></div><div><label>WhatsApp *</label><input id="phone" inputmode="tel" value="${esc(state.data.phone||'')}"></div><div><label>Email</label><input id="email" type="email" value="${esc(state.data.email||'')}"></div><div><label>Localidad / Provincia</label><input id="city" value="${esc(state.data.city||'')}"></div></div>`;
+}
+function renderUpdate(){
+ let b=document.getElementById("modalBody");
+ if(state.step===0)b.innerHTML=`${commonContact()}<div style="margin-top:18px"><label>¿Qué querés modificar? *</label><textarea id="changes" placeholder="Ej.: cambiar teléfono, agregar trabajo en..., quitar curso...">${esc(state.data.changes||'')}</textarea><div class="hint">Podés enumerar todos los cambios que necesitás.</div></div><div class="notice">Cuando se abra WhatsApp, adjuntá tu CV actual. Si el archivo no permite una edición correcta y necesita reconstrucción, te confirmaremos el servicio y precio antes de comenzar.</div>${nextBtn("Revisar solicitud")}`;
+ else if(state.step===1)b.innerHTML=reviewHTML();
+ else b.innerHTML=paymentHTML(true);
+}
+function renderRebuild(){
+ let b=document.getElementById("modalBody");
+ if(state.step===0)b.innerHTML=`<h3>¿Qué querés hacer con el diseño?</h3>${choices([["similar","Mantener estilo","Reconstruirlo con una apariencia similar."],["new","Cambiar diseño","Elegir uno de nuestros modelos."]],"design",state.design||"similar")}${nextBtn("Continuar")}`;
+ else if(state.step===1){
+   if((state.design||"similar")==="new") b.innerHTML=templateChooser()+nextBtn("Continuar",true);
+   else b.innerHTML=`${commonContact()}<div style="margin-top:16px"><label>¿Qué querés agregar, quitar o modificar? *</label><textarea id="changes">${esc(state.data.changes||'')}</textarea></div>${nextBtn("Revisar solicitud",true)}`;
+ } else if(state.step===2){
+   if((state.design||"similar")==="new" && !state.data.name){b.innerHTML=`${commonContact()}<div style="margin-top:16px"><label>¿Qué querés agregar, quitar o modificar? *</label><textarea id="changes">${esc(state.data.changes||'')}</textarea></div>${nextBtn("Revisar solicitud",true)}`}
+   else b.innerHTML=reviewHTML();
+ } else if(state.step===3)b.innerHTML= state._reviewed?paymentHTML(false):reviewHTML();
+}
+function renderNew(){
+ let b=document.getElementById("modalBody");
+ if(state.step===0){
+  b.innerHTML=`<h3>¿Cuál es tu situación?</h3>${choices([["experienced","Tengo experiencia","Ya trabajé formal o informalmente."],["little","Tengo poca experiencia","Quiero aprovechar mejor lo que ya hice."],["first","Busco mi primer empleo","Todavía no tuve un empleo formal."]],"situation",state.situation||(state.firstJob?"first":"experienced"))}${nextBtn("Continuar")}`;
+ } else if(state.step===1){
+  b.innerHTML=`<h3>¿Querés orientar tu CV?</h3><div class="form-grid"><div><label>Sector / área</label><input id="sector" placeholder="Ej.: Administración, comercio, logística..." value="${esc(state.data.sector||'')}"></div><div><label>Puesto buscado</label><input id="role" placeholder="Ej.: Auxiliar administrativo" value="${esc(state.data.role||'')}"></div><div class="full"><label>Perfil / sobre vos (opcional)</label><textarea id="profile" placeholder="Si no sabés qué escribir, podés dejarlo en blanco.">${esc(state.data.profile||'')}</textarea><div class="hint">Podemos organizar y redactar esta parte a partir de la información que nos brindes.</div></div></div>${nextBtn("Elegir modelo",true)}`;
+ } else if(state.step===2)b.innerHTML=templateChooser()+nextBtn("Continuar",true);
+ else if(state.step===3)b.innerHTML=`${commonContact()}<h3 style="margin-top:22px">Experiencia / actividades</h3><p class="hint">También sirven trabajos informales, emprendimientos, prácticas, voluntariados o proyectos. Si buscás tu primer empleo y no tenés ninguno, podés dejarlo vacío.</p><div id="expList">${repeatHTML("experiences")}</div><button class="btn ghost" onclick="addRepeat('experiences')">+ Agregar experiencia</button><h3 style="margin-top:26px">Estudios</h3><div id="studyList">${repeatHTML("studies")}</div><button class="btn ghost" onclick="addRepeat('studies')">+ Agregar estudio</button>${nextBtn("Continuar",true)}`;
+ else if(state.step===4)b.innerHTML=`<div class="form-grid"><div class="full"><label>Cursos / certificaciones</label><textarea id="coursesText" placeholder="Ej.: Excel intermedio - Instituto X - 2026">${esc(state.data.coursesText||'')}</textarea></div><div class="full"><label>Habilidades / conocimientos</label><textarea id="skills" placeholder="Programas, herramientas, conocimientos técnicos, atención al cliente, etc.">${esc(state.data.skills||'')}</textarea></div><div><label>Idiomas</label><input id="languages" value="${esc(state.data.languages||'')}"></div><div><label>Licencia de conducir</label><input id="license" placeholder="Ej.: B1 / No" value="${esc(state.data.license||'')}"></div><div class="full"><label>Información adicional</label><textarea id="other" placeholder="Disponibilidad, referencias u otra información que consideres importante.">${esc(state.data.other||'')}</textarea></div></div>${nextBtn("Revisar solicitud",true)}`;
+ else if(state.step===5)b.innerHTML= state._reviewed?paymentHTML(false):reviewHTML();
+}
+function nextBtn(label,back=false){return `<div class="form-actions">${back?'<button class="btn secondary" onclick="nav(-1)">Atrás</button>':'<span></span>'}<button class="btn" onclick="advance()">${label} →</button></div>`}
+function advance(){
+ saveCommon();
+ if(state.service==="new"&&state.step===0&&!state.situation)state.situation=state.firstJob?"first":"experienced";
+ if(state.service==="rebuild"&&state.step===0&&!state.design)state.design="similar";
+ if(state.service==="new"&&state.step===3)saveRepeats();
+ if(state.service==="new"&&state.step===4){state.data.coursesText=val("coursesText")}
+ if(state.step===stepsCount()-1){state._reviewed=true;render();return}
+ state.step++;render();
+}
+function templateChooser(){return `<h3>Elegí un modelo</h3><p class="hint">Vas a poder ajustar detalles durante el armado.</p><div class="template-grid">${templates.map(t=>`<div class="card template ${state.template===t.id?'selected':''}" style="padding:0" onclick="state.template='${t.id}';render()"><div class="template-preview">${CVE_PREVIEWS[t.name]}</div><strong>${t.name}</strong><div class="hint">${t.desc}</div></div>`).join("")}</div>`}
+function addRepeat(type){saveRepeats();state[type].push({a:"",b:"",c:"",d:""});render()}
+function removeRepeat(type,i){saveRepeats();state[type].splice(i,1);render()}
+function repeatHTML(type){
+ let arr=state[type]; if(!arr.length)arr.push({a:"",b:"",c:"",d:""});
+ return arr.map((r,i)=>`<div class="repeat"><div class="repeat-head"><strong>${type==="experiences"?"Experiencia":"Estudio"} ${i+1}</strong>${arr.length>1?`<button class="linkbtn" onclick="removeRepeat('${type}',${i})">Quitar</button>`:""}</div><div class="form-grid" style="margin-top:12px">
+ <div><label>${type==="experiences"?"Empresa / actividad":"Institución"}</label><input data-type="${type}" data-i="${i}" data-k="a" value="${esc(r.a)}"></div>
+ <div><label>${type==="experiences"?"Puesto / función":"Título / estudio"}</label><input data-type="${type}" data-i="${i}" data-k="b" value="${esc(r.b)}"></div>
+ <div><label>Desde</label><input data-type="${type}" data-i="${i}" data-k="c" value="${esc(r.c)}" placeholder="Ej.: 2024"></div>
+ <div><label>Hasta / estado</label><input data-type="${type}" data-i="${i}" data-k="d" value="${esc(r.d)}" placeholder="Ej.: Actualidad / Completo"></div>
+ ${type==="experiences"?`<div class="full"><label>Tareas / detalles</label><textarea data-type="${type}" data-i="${i}" data-k="e">${esc(r.e||"")}</textarea></div>`:""}
+ </div></div>`).join("");
+}
+function saveRepeats(){
+ document.querySelectorAll("[data-type]").forEach(e=>{let t=e.dataset.type,i=+e.dataset.i,k=e.dataset.k;if(state[t]&&state[t][i])state[t][i][k]=e.value.trim()});
+}
+function reviewHTML(){
+ saveCommon(); saveRepeats();
+ return `<h3>Revisá antes de continuar</h3><p class="hint">Esto es lo que se preparará para WhatsApp. Podés volver atrás si necesitás corregir algo.</p><div class="summary">${esc(buildMessage(false))}</div><div class="form-actions"><button class="btn secondary" onclick="state.step=Math.max(0,state.step-1);render()">Corregir datos</button><button class="btn" onclick="state._reviewed=true;render()">Continuar al pago →</button></div>`;
+}
+function paymentHTML(updateReview){
+ let price=CONFIG.prices[state.service];
+ return `<div class="paybox"><span class="label">Último paso</span><h3 style="margin-top:10px">${title()}</h3><div class="price" style="font-size:32px">${price}</div>
+ ${state.service==="update"?
+ `<p>Primero envianos la solicitud y tu CV actual. Confirmaremos si corresponde edición simple o reconstrucción.</p>`:
+ `<p>Para confirmar el trabajo, transferí a:</p><div class="alias">${CONFIG.alias}</div><button class="btn secondary" onclick="copyAlias()">Copiar alias</button>`}</div>
+ <div class="notice">${state.service==="update"?"No pagues todavía: primero revisamos tu archivo y te confirmamos el valor final.":"El trabajo comienza una vez recibido el mensaje y confirmado el pago."}</div>
+ ${state.service==="update"?"":`<div class="checkrow"><input type="checkbox" id="paid" onchange="document.getElementById('waBtn').disabled=!this.checked"><label for="paid" style="font-weight:600">Ya realicé la transferencia. Enviaré el comprobante en WhatsApp.</label></div>`}
+ <button class="btn" id="waBtn" ${state.service==="update"?"":"disabled"} style="width:100%" onclick="sendWhatsApp()">${state.service==="update"?"Enviar CV para revisión":"Enviar solicitud por WhatsApp"}</button>
+ <div class="secure-note">Tu información no se guarda en esta web: se prepara en tu navegador y se envía cuando vos decidís.</div><p class="hint" style="text-align:center">WhatsApp se abrirá con el texto preparado. Enviá ese mensaje y luego adjuntá el comprobante. Si corresponde, adjuntá también tu CV actual, foto o aviso laboral.</p>`;
+}
+function serviceName(){return state.service==="update"?"ACTUALIZACIÓN DE CV":state.service==="rebuild"?"RECONSTRUCCIÓN + ACTUALIZACIÓN":"CV PROFESIONAL"}
+function templateName(){let t=templates.find(x=>x.id===state.template);return t?t.name:""}
+function cleanRows(arr,type){return arr.filter(x=>Object.values(x).some(Boolean)).map((x,i)=> type==="exp"?`${i+1}. ${x.b||"Actividad"} - ${x.a||""} (${x.c||"?"} a ${x.d||"?"})${x.e?`\n   Tareas: ${x.e}`:""}`:`${i+1}. ${x.b||"Estudio"} - ${x.a||""} (${x.c||""} ${x.d||""})`).join("\n")}
+function buildMessage(withPayment=true){
+ let d=state.data, s=`📄 SOLICITUD — ${serviceName()}\n\n`;
+ s+=`👤 DATOS\nNombre: ${d.name||"-"}\nWhatsApp: ${d.phone||"-"}\nEmail: ${d.email||"-"}\nLocalidad: ${d.city||"-"}\n\n`;
+ if(state.service==="update"){
+   s+=`✏️ CAMBIOS SOLICITADOS\n${d.changes||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n• CV actual\n${withPayment?"• Comprobante de transferencia\n":""}`;
+ } else if(state.service==="rebuild"){
+   s+=`🎨 DISEÑO\n${(state.design||"similar")==="similar"?"Mantener estilo similar":"Nuevo modelo: "+templateName()}\n\n📝 CAMBIOS SOLICITADOS\n${d.changes||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n• CV actual\n${withPayment?"• Comprobante de transferencia\n":""}`;
+ } else {
+   s+=`🎯 OBJETIVO\nSituación: ${state.situation==="first"?"Primer empleo":state.situation==="little"?"Poca experiencia":"Con experiencia"}\nSector: ${d.sector||"General"}\nPuesto buscado: ${d.role||"-"}\nPerfil aportado: ${d.profile||"-"}\n\n🎨 MODELO\n${templateName()}\n\n`;
+   s+=`💼 EXPERIENCIA / ACTIVIDADES\n${cleanRows(state.experiences,"exp")||"Sin información cargada"}\n\n🎓 ESTUDIOS\n${cleanRows(state.studies,"study")||"Sin información cargada"}\n\n`;
+   s+=`📚 CURSOS\n${d.coursesText||"-"}\n\n🛠 HABILIDADES\n${d.skills||"-"}\n\n🌎 IDIOMAS\n${d.languages||"-"}\n\n🚗 LICENCIA\n${d.license||"-"}\n\n📝 OTROS DATOS\n${d.other||"-"}\n\n📎 PENDIENTE EN ESTE CHAT\n${withPayment?"• Comprobante de transferencia\n":""}• Foto, si desea utilizarla\n• Aviso laboral, si quiere orientar el CV a una oferta concreta\n`;
+ }
+ if(withPayment && state.service!=="update")s+=`\n💳 PAGO\nIndiqué en la web que realicé la transferencia. Adjunto el comprobante a continuación.`;
+ return s;
+}
+function sendWhatsApp(){
+ let msg=buildMessage(true);
+ let waNumber=CONFIG.whatsappParts.join(""); let url=`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+ window.open(url,"_blank","noopener");
+}
+function copyAlias(){navigator.clipboard.writeText(CONFIG.alias).then(()=>toast("Alias copiado: "+CONFIG.alias)).catch(()=>prompt("Copiá el alias:",CONFIG.alias))}
+function toast(t){let e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",1800)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+window.addEventListener("beforeunload",()=>{try{localStorage.setItem("cvDraft",JSON.stringify(state))}catch(e){}});
+
+document.getElementById("overlay").addEventListener("click",e=>{
+  if(e.target.id==="overlay") closeModal();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && document.getElementById("overlay").classList.contains("open")) closeModal();
+});
+
+(function(){
+ const names=["ATS Clásico","ATS Moderno","Profesional","Minimalista"];
+ const box=document.getElementById("landingTemplates");
+ if(box){
+   box.innerHTML=names.map(n=>`<div class="template" role="button" tabindex="0" data-cve-template="${n}"><div class="template-preview">${CVE_PREVIEWS[n]}</div><strong>${n}</strong></div>`).join("");
+   box.querySelectorAll("[data-cve-template]").forEach(el=>{
+     const open=()=>{const ov=document.getElementById("cvePreview"),p=document.getElementById("cvePreviewPaper");p.innerHTML=`<button class="preview-close" type="button" aria-label="Cerrar">×</button>${CVE_PREVIEWS[el.dataset.cveTemplate]}`;ov.classList.add("open");p.querySelector(".preview-close").onclick=()=>ov.classList.remove("open");};
+     el.addEventListener("click",open);el.addEventListener("keydown",e=>{if(e.key==="Enter"){open();}});
+   });
+ }
+ const ov=document.getElementById("cvePreview");if(ov)ov.addEventListener("click",e=>{if(e.target===ov)ov.classList.remove("open")});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ov)ov.classList.remove("open")});
+
+ // Borrador: guarda valores visibles del formulario localmente y los restaura al redibujar el modal.
+ const KEY="cve_v9_draft";
+ function save(){
+   try{const d={};document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;d[k]=el.type==="checkbox"?el.checked:el.value});localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}
+ }
+ function restore(){
+   try{const d=JSON.parse(localStorage.getItem(KEY)||"{}");document.querySelectorAll("#overlay input,#overlay textarea,#overlay select").forEach((el,i)=>{const k=el.name||el.id||`f${i}`;if(k in d&&!el.value){if(el.type==="checkbox")el.checked=!!d[k];else el.value=d[k]}});}catch(e){}
+ }
+ const overlay=document.getElementById("overlay");
+ if(overlay){overlay.addEventListener("input",()=>{clearTimeout(window.__cveT);window.__cveT=setTimeout(save,300)});new MutationObserver(()=>setTimeout(restore,25)).observe(overlay,{childList:true,subtree:true});}
+
+ // Enlace de WhatsApp flotante, contextual según la sección visible.
+ const q=document.getElementById("quickWhatsApp");
+ if(q){
+   const num=(CONFIG.whatsappParts||[]).join("");
+   const refresh=()=>{let topic="el servicio de CV";const y=scrollY+innerHeight*.45,a=document.getElementById("servicios"),b=document.getElementById("plantillas"),f=document.getElementById("faq");if(a&&y>=a.offsetTop)topic="qué opción de CV me conviene";if(b&&y>=b.offsetTop)topic="los modelos de CV";if(f&&y>=f.offsetTop)topic="el servicio de CV";q.href=`https://wa.me/${num}?text=${encodeURIComponent(`Hola, vengo desde la página de CVE — Tu CV listo. Quería consultar sobre ${topic}.`)}`};refresh();addEventListener("scroll",refresh,{passive:true});
+ }
+})();
+</script>
+
+<a class="wa-float" id="quickWhatsApp" href="https://wa.me/5492646706973?text=Hola%2C%20vengo%20desde%20la%20p%C3%A1gina%20de%20CVE%20%E2%80%94%20Tu%20CV%20listo.%20Quer%C3%ADa%20consultar%20sobre%20el%20servicio%20de%20CV." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+  <span class="wa-icon" aria-hidden="true">
+    <svg viewBox="0 0 32 32" role="img"><path d="M16.04 3C9.39 3 4 8.24 4 14.7c0 2.3.7 4.54 2.01 6.44L4.1 28l7.19-1.83a12.32 12.32 0 0 0 4.74.94h.01C22.68 27.11 28 21.87 28 15.4 28 8.94 22.68 3 16.04 3Zm0 21.95h-.01a10.2 10.2 0 0 1-4.3-.96l-.31-.15-4.27 1.09 1.14-4.04-.2-.32a9.57 9.57 0 0 1-1.52-5.16c0-5.29 4.25-9.59 9.48-9.59 5.23 0 9.48 4.3 9.48 9.59 0 5.29-4.26 9.54-9.49 9.54Zm5.2-7.17c-.28-.14-1.68-.82-1.94-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.73-1.41-1.64-1.57-1.92-.17-.28-.02-.43.12-.57.13-.13.28-.33.43-.49.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.49-.07-.14-.64-1.53-.88-2.1-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43 0 1.43 1.04 2.81 1.19 3 .14.19 2.05 3.12 4.97 4.37.69.3 1.24.48 1.66.61.7.22 1.33.19 1.83.12.56-.08 1.68-.68 1.92-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33Z"/></svg>
+  </span>
+  <span class="wa-copy">¿Tenés una consulta?<small>Escribinos por WhatsApp</small></span>
+</a>
+
+<script>
+(function(){
+  const q=document.getElementById("quickWhatsApp");
+  if(!q || typeof CONFIG==="undefined") return;
+  const num=(CONFIG.whatsappParts||[]).join("");
+  const refresh=()=>{
+    let topic="el servicio de CV";
+    const y=scrollY+innerHeight*.45;
+    const services=document.getElementById("servicios");
+    const templates=document.getElementById("plantillas");
+    const faq=document.getElementById("faq");
+    if(services&&y>=services.offsetTop) topic="qué opción de CV me conviene";
+    if(templates&&y>=templates.offsetTop) topic="los modelos de CV";
+    if(faq&&y>=faq.offsetTop) topic="el servicio de CV";
+    q.href=`https://wa.me/${num}?text=${encodeURIComponent(`Hola, vengo desde la página de CVE — Tu CV listo. Quería consultar sobre ${topic}.`)}`;
+  };
+  refresh();
+  addEventListener("scroll",refresh,{passive:true});
+})();
+</script>
+
+<div class="preview-overlay" id="cvePreview"><div class="preview-paper" id="cvePreviewPaper"></div></div>
+</body>
+</html>
