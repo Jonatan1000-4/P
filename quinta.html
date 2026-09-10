@@ -7,7 +7,7 @@
   <title>Quinta La Laja | Albardón, San Juan</title>
   <meta name="description" content="Quinta en La Laja, Albardón, San Juan. Casa amplia con 2 dormitorios, salón, quincho, parrilla, sanitarios y pileta. Consultá disponibilidad.">
   <style>
-    :root{--ink:#18322d;--green:#1f5a4b;--green2:#2d7864;--sand:#f4efe6;--cream:#fbfaf7;--gold:#c99d59;--white:#fff;--muted:#66736f;--line:#e7e8e4;--shadow:0 18px 50px rgba(20,45,38,.14)}
+    :root{--ink:#18322d;--green:#1f5a4b;--green2:#2d7864;--sand:#f4efe6;--cream:#fbfaf7;--gold:#c99d59;--white:#fff;--muted:#66736f;--line:#e7e8e4;--shadow-sm:0 8px 22px rgba(20,45,38,.08);--shadow:0 18px 50px rgba(20,45,38,.14);--shadow-lg:0 28px 70px rgba(20,45,38,.2)}
     *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:24px}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:var(--ink);background:var(--cream);line-height:1.5;overflow-x:hidden}
     a{text-decoration:none;color:inherit} button,input,select{font:inherit} :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
@@ -19,34 +19,39 @@
     .navcta{border:1px solid rgba(255,255,255,.55);padding:10px 15px;border-radius:999px;white-space:nowrap}
     .hero{min-height:92vh;display:flex;align-items:flex-end;position:relative;color:#fff;background:
       linear-gradient(180deg,rgba(7,24,19,.22),rgba(7,24,19,.72)),
-      url("https://i.ibb.co/Kz5cLMmC/558017465-10214608475801475-159229831896623091-n.jpg") center/cover no-repeat;background-color:#365d52}
-    .hero:after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,var(--cream))}
+      url("https://i.ibb.co/67Vtmgw1/Gemini-Generated-Image-toc6eytoc6eytoc6.jpg") center/cover no-repeat;background-color:#365d52;animation:heroReveal 1.2s ease both}
+    .hero:after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,var(--cream));pointer-events:none}
     .herocontent{position:relative;z-index:2;padding:clamp(150px,22vh,210px) 0 clamp(92px,12vh,132px);max-width:790px}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700}
-    h1{font-size:clamp(44px,7vw,82px);line-height:.98;letter-spacing:-3px;margin:18px 0 20px;max-width:760px}
-    .lead{font-size:clamp(18px,2vw,23px);max-width:660px;color:rgba(255,255,255,.91)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:0;cursor:pointer;padding:14px 20px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .2s ease,box-shadow .2s ease}.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(14,47,37,.16)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700;animation:riseIn .7s .1s ease both}
+    h1{font-size:clamp(44px,7vw,82px);line-height:.98;letter-spacing:-3px;margin:18px 0 20px;max-width:760px;animation:riseIn .8s .2s ease both}
+    .lead{font-size:clamp(18px,2vw,23px);max-width:660px;color:rgba(255,255,255,.91);animation:riseIn .8s .35s ease both}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;animation:riseIn .8s .5s ease both}.btn{border:0;cursor:pointer;padding:14px 20px;min-height:50px;max-width:100%;border-radius:12px;font-weight:800;line-height:1.25;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);filter:brightness(1.04)}.btn:active{transform:translateY(-1px)}
     .btn-primary{background:var(--gold);color:#172a25}.btn-light{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(8px)}
     section{padding:90px 0}.sectionhead{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}
     .kicker{color:var(--green2);font-size:13px;text-transform:uppercase;letter-spacing:2px;font-weight:900}
     h2{font-size:clamp(32px,4vw,50px);line-height:1.05;letter-spacing:-1.6px;margin:8px 0}
     .muted{color:var(--muted);max-width:620px}
     .features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-42px;position:relative;z-index:4}
-    .feature{background:#fff;padding:23px;border-radius:18px;box-shadow:var(--shadow);min-height:128px}.ico{font-size:25px;line-height:1}.feature b{display:block;margin-top:12px}.feature span{font-size:13px;color:var(--muted)}
-    .intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.introimg{height:560px;border-radius:28px;background:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg") center/cover no-repeat;background-color:#ddd;box-shadow:var(--shadow)}
+    .feature{background:#fff;padding:23px;border-radius:18px;box-shadow:var(--shadow);min-height:128px;transition:transform .25s ease,box-shadow .25s ease}.feature:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}.features .feature{animation:cardReveal .7s ease both}.features .feature:nth-child(2){animation-delay:.08s}.features .feature:nth-child(3){animation-delay:.16s}.features .feature:nth-child(4){animation-delay:.24s}.ico{font-size:25px;line-height:1}.feature b{display:block;margin-top:12px}.feature span{font-size:13px;color:var(--muted)}
+    .intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.introimg{height:560px;border-radius:28px;background:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg") center/cover no-repeat;background-color:#ddd;box-shadow:var(--shadow);transition:transform .5s ease,box-shadow .5s ease}.introimg:hover{transform:scale(1.015);box-shadow:var(--shadow-lg)}
     .checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:25px}.check{background:#fff;border:1px solid var(--line);padding:13px;border-radius:12px;font-weight:700;font-size:14px}
     .gallery{display:grid;grid-template-columns:1.4fr .8fr .8fr;grid-template-rows:270px 270px;gap:12px}
-    .photo{border-radius:20px;background-position:center;background-size:cover;background-color:#ddd;position:relative;overflow:hidden}.photo:first-child{grid-row:1/3}
-    .p1{background-image:url("https://i.ibb.co/Kz5cLMmC/558017465-10214608475801475-159229831896623091-n.jpg")}.p2{background-image:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg")}.p3{background-image:url("https://i.ibb.co/YTRZk1yF/559879007-10214608476281487-2364870158405816556-n.jpg")}.p4{background-image:url("https://i.ibb.co/qFgy3x5D/557748206-10214608480321588-8021438523185858791-n.jpg")}.p5{background-image:url("https://i.ibb.co/Qjx2j7BB/559034773-10214608476881502-6621103356272488322-n.jpg")}.p6{background-image:url("https://i.ibb.co/84MC8q6D/558923191-10214608479921578-969034447280498232-n.jpg")}.p7{background-image:url("https://i.ibb.co/kgjqMHSP/558348128-10214608480201585-3809002371638255310-n.jpg")}
+    .photo{border-radius:20px;background-position:center;background-size:cover;background-color:#ddd;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .35s ease,box-shadow .35s ease}.photo:hover{transform:scale(1.018);box-shadow:var(--shadow-lg);z-index:1}.photo:first-child{grid-row:1/3}
+    .p1{background-image:url("https://i.ibb.co/67Vtmgw1/Gemini-Generated-Image-toc6eytoc6eytoc6.jpg")}.p2{background-image:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg")}.p3{background-image:url("https://i.ibb.co/YTRZk1yF/559879007-10214608476281487-2364870158405816556-n.jpg")}.p4{background-image:url("https://i.ibb.co/qFgy3x5D/557748206-10214608480321588-8021438523185858791-n.jpg")}.p5{background-image:url("https://i.ibb.co/Qjx2j7BB/559034773-10214608476881502-6621103356272488322-n.jpg")}.p6{background-image:url("https://i.ibb.co/84MC8q6D/558923191-10214608479921578-969034447280498232-n.jpg")}.p7{background-image:url("https://i.ibb.co/kgjqMHSP/558348128-10214608480201585-3809002371638255310-n.jpg")}
     .photo:last-child:after{content:"+ más fotos";position:absolute;inset:0;background:rgba(10,32,25,.45);display:grid;place-items:center;color:#fff;font-weight:850;font-size:20px}
     .bookingsec{background:var(--ink);color:#fff}.booking{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
     .booking .muted{color:#c7d2ce}.form{background:#fff;color:var(--ink);padding:clamp(20px,4vw,32px);border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.2)}
     .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:850;margin:0 0 7px}.field input,.field select{width:100%;padding:13px;border:1px solid #dfe3e0;border-radius:10px;background:#fafafa;outline:none;min-height:48px}.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(45,120,100,.14)}.full{grid-column:1/-1}.form .btn{width:100%;background:#25D366;color:#092b17;margin-top:4px}
     .note{font-size:12px;color:#7c8985;text-align:center;margin:12px 0 0}
-    .location{display:grid;grid-template-columns:.75fr 1.25fr;gap:25px}.loccard{background:var(--sand);padding:34px;border-radius:24px}.map{min-height:420px;border:0;width:100%;border-radius:24px;background:#e6e4dc}
+    .location{display:grid;grid-template-columns:.75fr 1.25fr;gap:25px}.loccard{background:var(--sand);padding:34px;border-radius:24px}.loccard .btn{width:100%}.map{min-height:420px;border:0;width:100%;border-radius:24px;background:#e6e4dc}
     .final{padding:80px 0;text-align:center;background:var(--sand)}.final p{margin:12px auto 25px;max-width:570px}
     footer{background:#102923;color:#d7e0dd;padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;font-size:13px}
-    .float{position:fixed;right:20px;bottom:20px;z-index:20;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:26px}
+    .float{position:fixed;right:20px;bottom:20px;z-index:20;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:26px;transition:transform .25s ease,box-shadow .25s ease;animation:floatIn .8s 1s ease both}.float:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 16px 34px rgba(0,0,0,.3)}
+    @keyframes heroReveal{from{opacity:.55;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+    @keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes cardReveal{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes floatIn{from{opacity:0;transform:translateY(18px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
     @media(max-width:900px){.navlinks a:not(.navcta){display:none}.hero{min-height:82vh}h1{letter-spacing:-2px}.features{grid-template-columns:1fr 1fr}.intro,.booking,.location{grid-template-columns:1fr;gap:35px}.introimg{height:min(58vw,460px);min-height:320px}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:300px 190px 190px}.photo:first-child{grid-column:1/-1;grid-row:auto}.sectionhead{display:block}.booking{gap:45px}.foot{flex-direction:column}}
     @media(max-width:560px){.wrap{width:min(100% - 28px,1160px)}nav{padding:18px 0}.brand{font-size:16px}.navcta{padding:9px 11px;font-size:12px}.hero{min-height:88svh}.herocontent{padding-top:150px;padding-bottom:92px}.eyebrow{font-size:11px;padding:7px 10px}h1{font-size:clamp(42px,13vw,62px);letter-spacing:-2.5px;margin-top:15px}.lead{font-size:17px}.actions{margin-top:24px}.actions .btn{width:100%}section{padding:68px 0}.features{gap:8px;margin-top:-34px}.feature{padding:15px;min-height:124px}.feature b{font-size:14px}.feature span{font-size:12px}.introimg{height:82vw;min-height:270px}.checkgrid,.fields{grid-template-columns:1fr}.full{grid-column:auto}.gallery{grid-template-rows:58vw 42vw 42vw;gap:8px}.photo{border-radius:14px}.photo:last-child:after{font-size:16px}.form{border-radius:18px}.location .loccard{padding:24px}.map{min-height:300px;border-radius:18px}.float{right:14px;bottom:14px;width:54px;height:54px}.final{padding:68px 0}}
   </style>
@@ -111,7 +116,7 @@
   <section id="ubicacion"><div class="wrap">
     <div class="sectionhead"><div><div class="kicker">Ubicación</div><h2>La Laja, Albardón.</h2></div></div>
     <div class="location">
-      <div class="loccard"><h3>Albardón, San Juan</h3><p class="muted">La propiedad se encuentra sobre calle La Laja. Agregá aquí la dirección o referencia exacta que el propietario quiera mostrar públicamente.</p><a class="btn btn-primary" href="GOOGLE_MAPS_URL" target="_blank" rel="noopener">Cómo llegar ↗</a></div>
+      <div class="loccard"><h3>Albardón, San Juan</h3><p class="muted">La propiedad se encuentra sobre calle La Laja. Agregá aquí la dirección o referencia exacta que el propietario quiera mostrar públicamente.</p><a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=-31.377160394354174%2C-68.47434562552434" target="_blank" rel="noopener noreferrer">Cómo llegar ↗</a></div>
       <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3406.3409757089585!2d-68.47434562552434!3d-31.377160394354174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x968167c9068e3b65%3A0x8d30e7d18d220486!2sFinca%20T%C3%ADa%20Maria!5e0!3m2!1ses-419!2sar!4v1789077286337!5m2!1ses-419!2sar" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Ubicación de la quinta"></iframe>
     </div>
   </div></section>
@@ -134,7 +139,11 @@
     const entrada=document.getElementById("entrada").value;
     const salida=document.getElementById("salida").value;
     const personas=document.getElementById("personas").value;
-    const msg=`Hola! Soy ${nombre}. Quisiera consultar disponibilidad de la quinta en La Laja, Albardón.%0A%0A📅 Entrada: ${entrada}%0A📅 Salida: ${salida}%0A👥 Huéspedes: ${personas}%0A%0A¿Está disponible para esas fechas?`;
+    if(salida <= entrada){
+      alert("La fecha de salida debe ser posterior a la fecha de entrada.");
+      return;
+    }
+    const msg=encodeURIComponent(`Hola! Soy ${nombre}. Quisiera consultar disponibilidad de la quinta en La Laja, Albardón.\n\nEntrada: ${entrada}\nSalida: ${salida}\nHuéspedes: ${personas}\n\n¿Está disponible para esas fechas?`);
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`,"_blank");
   }
 
