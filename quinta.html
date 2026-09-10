@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173a32">
+  <title>Quinta La Laja | Albardón, San Juan</title>
+  <meta name="description" content="Quinta en La Laja, Albardón, San Juan. Casa amplia con 2 dormitorios, salón, quincho, parrilla, sanitarios y pileta. Consultá disponibilidad.">
+  <style>
+    :root{--ink:#18322d;--green:#1f5a4b;--green2:#2d7864;--sand:#f4efe6;--cream:#fbfaf7;--gold:#c99d59;--white:#fff;--muted:#66736f;--line:#e7e8e4;--shadow:0 18px 50px rgba(20,45,38,.14)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:24px}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:var(--ink);background:var(--cream);line-height:1.5;overflow-x:hidden}
+    a{text-decoration:none;color:inherit} button,input,select{font:inherit} :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .wrap{width:min(1160px,calc(100% - 48px));margin:auto}
+    nav{position:absolute;z-index:10;top:0;left:0;width:100%;padding:24px 0;color:#fff}
+    .navin{display:flex;justify-content:space-between;align-items:center;gap:24px}.brand{font-weight:850;letter-spacing:.4px;font-size:20px;white-space:nowrap}
+    .navlinks{display:flex;gap:clamp(14px,2.4vw,28px);align-items:center;font-size:14px;font-weight:650}
+    .navlinks a:not(.navcta){opacity:.88;transition:opacity .2s ease}.navlinks a:not(.navcta):hover{opacity:1}
+    .navcta{border:1px solid rgba(255,255,255,.55);padding:10px 15px;border-radius:999px;white-space:nowrap}
+    .hero{min-height:92vh;display:flex;align-items:flex-end;position:relative;color:#fff;background:
+      linear-gradient(180deg,rgba(7,24,19,.22),rgba(7,24,19,.72)),
+      url("https://i.ibb.co/Kz5cLMmC/558017465-10214608475801475-159229831896623091-n.jpg") center/cover no-repeat;background-color:#365d52}
+    .hero:after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,var(--cream))}
+    .herocontent{position:relative;z-index:2;padding:clamp(150px,22vh,210px) 0 clamp(92px,12vh,132px);max-width:790px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700}
+    h1{font-size:clamp(44px,7vw,82px);line-height:.98;letter-spacing:-3px;margin:18px 0 20px;max-width:760px}
+    .lead{font-size:clamp(18px,2vw,23px);max-width:660px;color:rgba(255,255,255,.91)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:0;cursor:pointer;padding:14px 20px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .2s ease,box-shadow .2s ease}.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(14,47,37,.16)}
+    .btn-primary{background:var(--gold);color:#172a25}.btn-light{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(8px)}
+    section{padding:90px 0}.sectionhead{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}
+    .kicker{color:var(--green2);font-size:13px;text-transform:uppercase;letter-spacing:2px;font-weight:900}
+    h2{font-size:clamp(32px,4vw,50px);line-height:1.05;letter-spacing:-1.6px;margin:8px 0}
+    .muted{color:var(--muted);max-width:620px}
+    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-42px;position:relative;z-index:4}
+    .feature{background:#fff;padding:23px;border-radius:18px;box-shadow:var(--shadow);min-height:128px}.ico{font-size:25px;line-height:1}.feature b{display:block;margin-top:12px}.feature span{font-size:13px;color:var(--muted)}
+    .intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.introimg{height:560px;border-radius:28px;background:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg") center/cover no-repeat;background-color:#ddd;box-shadow:var(--shadow)}
+    .checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:25px}.check{background:#fff;border:1px solid var(--line);padding:13px;border-radius:12px;font-weight:700;font-size:14px}
+    .gallery{display:grid;grid-template-columns:1.4fr .8fr .8fr;grid-template-rows:270px 270px;gap:12px}
+    .photo{border-radius:20px;background-position:center;background-size:cover;background-color:#ddd;position:relative;overflow:hidden}.photo:first-child{grid-row:1/3}
+    .p1{background-image:url("https://i.ibb.co/Kz5cLMmC/558017465-10214608475801475-159229831896623091-n.jpg")}.p2{background-image:url("https://i.ibb.co/SwfSjhrs/558432774-10214608475641471-8663568655017804733-n.jpg")}.p3{background-image:url("https://i.ibb.co/YTRZk1yF/559879007-10214608476281487-2364870158405816556-n.jpg")}.p4{background-image:url("https://i.ibb.co/qFgy3x5D/557748206-10214608480321588-8021438523185858791-n.jpg")}.p5{background-image:url("https://i.ibb.co/Qjx2j7BB/559034773-10214608476881502-6621103356272488322-n.jpg")}.p6{background-image:url("https://i.ibb.co/84MC8q6D/558923191-10214608479921578-969034447280498232-n.jpg")}.p7{background-image:url("https://i.ibb.co/kgjqMHSP/558348128-10214608480201585-3809002371638255310-n.jpg")}
+    .photo:last-child:after{content:"+ más fotos";position:absolute;inset:0;background:rgba(10,32,25,.45);display:grid;place-items:center;color:#fff;font-weight:850;font-size:20px}
+    .bookingsec{background:var(--ink);color:#fff}.booking{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+    .booking .muted{color:#c7d2ce}.form{background:#fff;color:var(--ink);padding:clamp(20px,4vw,32px);border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.2)}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:850;margin:0 0 7px}.field input,.field select{width:100%;padding:13px;border:1px solid #dfe3e0;border-radius:10px;background:#fafafa;outline:none;min-height:48px}.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(45,120,100,.14)}.full{grid-column:1/-1}.form .btn{width:100%;background:#25D366;color:#092b17;margin-top:4px}
+    .note{font-size:12px;color:#7c8985;text-align:center;margin:12px 0 0}
+    .location{display:grid;grid-template-columns:.75fr 1.25fr;gap:25px}.loccard{background:var(--sand);padding:34px;border-radius:24px}.map{min-height:420px;border:0;width:100%;border-radius:24px;background:#e6e4dc}
+    .final{padding:80px 0;text-align:center;background:var(--sand)}.final p{margin:12px auto 25px;max-width:570px}
+    footer{background:#102923;color:#d7e0dd;padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px;font-size:13px}
+    .float{position:fixed;right:20px;bottom:20px;z-index:20;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:26px}
+    @media(max-width:900px){.navlinks a:not(.navcta){display:none}.hero{min-height:82vh}h1{letter-spacing:-2px}.features{grid-template-columns:1fr 1fr}.intro,.booking,.location{grid-template-columns:1fr;gap:35px}.introimg{height:min(58vw,460px);min-height:320px}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:300px 190px 190px}.photo:first-child{grid-column:1/-1;grid-row:auto}.sectionhead{display:block}.booking{gap:45px}.foot{flex-direction:column}}
+    @media(max-width:560px){.wrap{width:min(100% - 28px,1160px)}nav{padding:18px 0}.brand{font-size:16px}.navcta{padding:9px 11px;font-size:12px}.hero{min-height:88svh}.herocontent{padding-top:150px;padding-bottom:92px}.eyebrow{font-size:11px;padding:7px 10px}h1{font-size:clamp(42px,13vw,62px);letter-spacing:-2.5px;margin-top:15px}.lead{font-size:17px}.actions{margin-top:24px}.actions .btn{width:100%}section{padding:68px 0}.features{gap:8px;margin-top:-34px}.feature{padding:15px;min-height:124px}.feature b{font-size:14px}.feature span{font-size:12px}.introimg{height:82vw;min-height:270px}.checkgrid,.fields{grid-template-columns:1fr}.full{grid-column:auto}.gallery{grid-template-rows:58vw 42vw 42vw;gap:8px}.photo{border-radius:14px}.photo:last-child:after{font-size:16px}.form{border-radius:18px}.location .loccard{padding:24px}.map{min-height:300px;border-radius:18px}.float{right:14px;bottom:14px;width:54px;height:54px}.final{padding:68px 0}}
+  </style>
+</head>
+<body>
+<nav><div class="wrap navin"><div class="brand">QUINTA LA LAJA</div><div class="navlinks"><a href="#quinta">La quinta</a><a href="#galeria">Galería</a><a href="#ubicacion">Ubicación</a><a class="navcta" href="#reservar">Consultar fechas</a></div></div></nav>
+
+<header class="hero">
+  <div class="wrap herocontent">
+    <div class="eyebrow">📍 La Laja · Albardón · San Juan</div>
+    <h1>Tu próxima escapada empieza acá.</h1>
+    <p class="lead">Una casa amplia con pileta, quincho y espacios para compartir. Consultá disponibilidad directamente y organizá tu estadía.</p>
+    <div class="actions"><a class="btn btn-primary" href="#reservar">Consultar disponibilidad →</a><a class="btn btn-light" href="#galeria">Ver la quinta</a></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap features">
+    <div class="feature"><div class="ico">🛏️</div><b>2 dormitorios</b><span>Casa amplia y cómoda</span></div>
+    <div class="feature"><div class="ico">🏊</div><b>Pileta</b><span>Para disfrutar al aire libre</span></div>
+    <div class="feature"><div class="ico">🔥</div><b>Parrilla y quemadores</b><span>Espacio para cocinar y compartir</span></div>
+    <div class="feature"><div class="ico">🌿</div><b>Quincho abierto</b><span>Con sanitarios propios</span></div>
+  </div>
+
+  <section id="quinta"><div class="wrap intro">
+    <div class="introimg"></div>
+    <div>
+      <div class="kicker">Una quinta para disfrutar</div>
+      <h2>Espacio, comodidad y aire libre.</h2>
+      <p class="muted">Ubicada en la zona de La Laja, Albardón, esta casa ofrece ambientes amplios y sectores pensados para disfrutar una estadía tranquila en familia o con amigos.</p>
+      <p class="muted">Cuenta con dos dormitorios, cocina, salón, baño y antebaño. En el exterior dispone de pileta, quincho abierto con sanitarios, parrilla y quemadores.</p>
+      <div class="checkgrid">
+        <div class="check">✓ Dos dormitorios</div><div class="check">✓ Cocina</div>
+        <div class="check">✓ Salón</div><div class="check">✓ Baño y antebaño</div>
+        <div class="check">✓ Quincho</div><div class="check">✓ Sanitarios exteriores</div>
+        <div class="check">✓ Parrilla</div><div class="check">✓ Pileta</div>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="galeria"><div class="wrap">
+    <div class="sectionhead"><div><div class="kicker">Galería</div><h2>Conocé cada espacio.</h2></div><p class="muted">Recorré los distintos espacios de la quinta y elegí tu próxima escapada.</p></div>
+    <div class="gallery">
+      <div class="photo p1"></div><div class="photo p2"></div><div class="photo p3"></div><div class="photo p4"></div><div class="photo p5"></div><div class="photo p6"></div><div class="photo p7"></div>
+    </div>
+  </div></section>
+
+  <section class="bookingsec" id="reservar"><div class="wrap booking">
+    <div><div class="kicker" style="color:#d7b77f">Reserva directa</div><h2>¿Querés consultar una fecha?</h2><p class="muted">Elegí las fechas, indicá cuántas personas serían y enviá la consulta directamente por WhatsApp. La disponibilidad se confirma con el propietario.</p></div>
+    <form class="form" onsubmit="sendWA(event)">
+      <div class="fields">
+        <div class="field"><label>FECHA DE ENTRADA</label><input id="entrada" type="date" required></div>
+        <div class="field"><label>FECHA DE SALIDA</label><input id="salida" type="date" required></div>
+        <div class="field full"><label>CANTIDAD DE PERSONAS</label><select id="personas" required><option value="">Seleccionar</option><option>2 personas</option><option>3 personas</option><option>4 personas</option><option>5 personas</option><option>6 personas</option><option>7 personas</option><option>8 o más personas</option></select></div>
+        <div class="field full"><label>NOMBRE</label><input id="nombre" placeholder="Tu nombre" required></div>
+        <div class="full"><button class="btn" type="submit">💬 Consultar disponibilidad por WhatsApp</button></div>
+      </div>
+      <p class="note">Enviar la consulta no confirma automáticamente la reserva.</p>
+    </form>
+  </div></section>
+
+  <section id="ubicacion"><div class="wrap">
+    <div class="sectionhead"><div><div class="kicker">Ubicación</div><h2>La Laja, Albardón.</h2></div></div>
+    <div class="location">
+      <div class="loccard"><h3>Albardón, San Juan</h3><p class="muted">La propiedad se encuentra sobre calle La Laja. Agregá aquí la dirección o referencia exacta que el propietario quiera mostrar públicamente.</p><a class="btn btn-primary" href="GOOGLE_MAPS_URL" target="_blank" rel="noopener">Cómo llegar ↗</a></div>
+      <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3406.3409757089585!2d-68.47434562552434!3d-31.377160394354174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x968167c9068e3b65%3A0x8d30e7d18d220486!2sFinca%20T%C3%ADa%20Maria!5e0!3m2!1ses-419!2sar!4v1789077286337!5m2!1ses-419!2sar" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Ubicación de la quinta"></iframe>
+    </div>
+  </div></section>
+
+  <section class="final"><div class="wrap"><div class="kicker">La Laja · San Juan</div><h2>Un lugar para desconectar y disfrutar.</h2><p class="muted">Consultá fechas disponibles directamente con el alojamiento.</p><a class="btn btn-primary" href="#reservar">Consultar disponibilidad</a></div></section>
+</main>
+
+<footer><div class="wrap foot"><b>QUINTA LA LAJA</b><span>Albardón · San Juan · Argentina</span><span>Reservas directas</span></div></footer>
+<a class="float" href="https://wa.me/5492644886493?text=Hola%2C%20quisiera%20consultar%20disponibilidad%20de%20la%20quinta." target="_blank" aria-label="WhatsApp">✆</a>
+
+<script>
+  // ===== CONFIGURACIÓN RÁPIDA =====
+  // Las fotos de la propiedad ya están configuradas en el HTML/CSS.
+  // 2) Reemplazá el número de abajo. Formato Argentina: 549 + código de área + número, sin +, espacios ni guiones.
+  const WHATSAPP = "5492644886493";
+
+  function sendWA(e){
+    e.preventDefault();
+    const nombre=document.getElementById("nombre").value;
+    const entrada=document.getElementById("entrada").value;
+    const salida=document.getElementById("salida").value;
+    const personas=document.getElementById("personas").value;
+    const msg=`Hola! Soy ${nombre}. Quisiera consultar disponibilidad de la quinta en La Laja, Albardón.%0A%0A📅 Entrada: ${entrada}%0A📅 Salida: ${salida}%0A👥 Huéspedes: ${personas}%0A%0A¿Está disponible para esas fechas?`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`,"_blank");
+  }
+
+  // Evita elegir una salida anterior a la entrada.
+  const entrada=document.getElementById("entrada"), salida=document.getElementById("salida");
+  const today=new Date().toISOString().split("T")[0]; entrada.min=today; salida.min=today;
+  entrada.addEventListener("change",()=>{salida.min=entrada.value;if(salida.value && salida.value<entrada.value) salida.value="";});
+</script>
+</body>
+</html>
