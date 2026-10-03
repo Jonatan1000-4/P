@@ -6,9 +6,18 @@ import { DEFAULT_MENU, DEFAULT_SETTINGS, DEFAULT_SCHEDULE } from "./default-data
 const SIZES={"2":"Comen 2 · pican 4","4":"Comen 4 · pican 6","8":"Comen 8 · pican 10"};
 const PRODUCT_IMAGES={"clásica":"assets/picada_2.jpg","especial":"assets/picada_3.jpg","premium":"assets/picada_4.jpg"};
 const $=id=>document.getElementById(id);
+const orderSection=$("pedido");
+function updateOrderVisibility(){
+  const bounds=orderSection.getBoundingClientRect();
+  document.body.classList.toggle("order-visible",bounds.top<innerHeight&&bounds.bottom>0);
+}
+window.addEventListener("scroll",updateOrderVisibility,{passive:true});
+window.addEventListener("resize",updateOrderVisibility);
+updateOrderVisibility();
 const money=n=>new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:0}).format(n);
 let db=null, MENU=[], settings={...DEFAULT_SETTINGS}, schedule={...DEFAULT_SCHEDULE};
-let type="", size="2";
+let cart=[];
+let cartToastTimer;
 
 try {
   if(firebaseConfig.apiKey && firebaseConfig.apiKey!="REEMPLAZAR"){
@@ -25,8 +34,6 @@ try {
   MENU=[];
 }
 
-type=MENU[0]?.name||"";
-
 function render(){
   const cards=$("cards");
   if(!MENU.length){
@@ -34,35 +41,67 @@ function render(){
     return;
   }
 
-  cards.innerHTML=MENU.map(m=>`<article class="card ${m.badge?'hot':''}">
+  cards.innerHTML=MENU.map((m,index)=>`<article class="card ${m.badge?'hot':''}">
     <div class="media" style="--img:url('${PRODUCT_IMAGES[m.name?.trim().toLocaleLowerCase("es-AR")]||m.img||"assets/picada_2.jpg"}')">${m.badge?`<span class="badge">${m.badge}</span>`:""}</div>
     <div class="body"><div class="tag">${m.tag||""}</div><h3>${m.name}</h3><p class="desc">${m.desc||""}</p>
-    <div class="prices">${Object.entries(m.prices||{}).map(([s,p])=>`<button type="button" class="price" data-type="${m.name}" data-size="${s}"><span>${SIZES[s]||s}</span><b>${money(p)}</b></button>`).join("")}</div>
-    <details><summary>Qué trae</summary><p>${m.items||""}</p></details>
-    <button class="btn btn-primary choose" data-type="${m.name}">Elegir ${m.name}</button></div></article>`).join("");
+    <div class="prices">${Object.entries(m.prices||{}).map(([s,p])=>`<button type="button" class="price" data-product-index="${index}" data-size="${s}" aria-label="Agregar ${m.name}, ${SIZES[s]||s}, ${money(p)}"><span>${SIZES[s]||s}</span><b>${money(p)}</b><span aria-hidden="true">+</span></button>`).join("")}</div>
+    <details><summary>Qué trae</summary><p>${m.items||""}</p></details></div></article>`).join("");
 
-  const chips=(id,name,opts,checked)=>$(id).innerHTML=opts.map(([v,t])=>`<input type="radio" name="${name}" id="${name}-${String(v).replace(/\s/g,"-")}" value="${v}" ${v==checked?"checked":""}><label for="${name}-${String(v).replace(/\s/g,"-")}">${t}</label>`).join("");
-  chips("typeChips","type",MENU.map(m=>[m.name,m.name]),type);
-  chips("sizeChips","size",Object.entries(SIZES),size);
-
-  document.querySelectorAll('input[name=type]').forEach(r=>r.onchange=()=>{type=r.value;update()});
-  document.querySelectorAll('input[name=size]').forEach(r=>r.onchange=()=>{size=r.value;update()});
-  document.querySelectorAll(".choose").forEach(b=>b.onclick=()=>{type=b.dataset.type;update();go()});
-  document.querySelectorAll(".price").forEach(b=>b.onclick=()=>{type=b.dataset.type;size=b.dataset.size;update();go()});
+  document.querySelectorAll(".price").forEach(button=>button.onclick=()=>addToCart(MENU[Number(button.dataset.productIndex)],button.dataset.size));
   $("businessStatus").textContent=settings.acceptingOrders!==false ? (settings.statusText||"Tomamos pedidos") : "Pedidos pausados";
   $("submitOrder").disabled=settings.acceptingOrders===false;
   $("submitOrder").textContent=settings.acceptingOrders===false ? "Pedidos pausados" : "Guardar y enviar por WhatsApp";
   buildDates();
-  update();
+  renderCart();
 }
-const qtyEl=$("qty"),getQty=()=>Math.min(10,Math.max(1,Number(qtyEl.value)||1));
-const current=()=>MENU.find(m=>m.name===type)||MENU[0];
-const unit=()=>Number(current()?.prices?.[size]||0);
-function update(){ $("total").textContent=money(unit()*getQty()); }
-const go=()=>$("pedido").scrollIntoView({behavior:"smooth"});
-qtyEl.oninput=update;
-$("minus").onclick=()=>{qtyEl.value=Math.max(1,getQty()-1);update()};
-$("plus").onclick=()=>{qtyEl.value=Math.min(10,getQty()+1);update()};
+function addToCart(product,productSize){
+  if(!product)return;
+  const unitPrice=Number(product.prices?.[productSize]);
+  if(!Number.isFinite(unitPrice)||unitPrice<0)return;
+  const productId=product.id||product.name;
+  const existing=cart.find(item=>item.productId===productId&&item.size===productSize);
+  if(existing)existing.qty=Math.min(10,existing.qty+1);
+  else cart.push({productId,name:product.name,size:productSize,sizeLabel:SIZES[productSize]||productSize,unitPrice,qty:1});
+  renderCart();
+  showCartToast(`Agregaste ${product.name} · ${SIZES[productSize]||productSize} al carrito.`);
+}
+function showCartToast(message){
+  const toast=$("cartToast");
+  clearTimeout(cartToastTimer);
+  $("cartToastMessage").textContent=message;
+  toast.hidden=false;
+  toast.classList.add("visible");
+  cartToastTimer=setTimeout(()=>{
+    toast.classList.remove("visible");
+    toast.hidden=true;
+  },3000);
+}
+function renderCart(){
+  const count=cart.reduce((sum,item)=>sum+item.qty,0);
+  const total=cart.reduce((sum,item)=>sum+item.unitPrice*item.qty,0);
+  $("cartCount").textContent=`${count} ${count===1?"unidad":"unidades"}`;
+  $("cartItems").innerHTML=cart.length?cart.map((item,index)=>`<article class="cart-line">
+    <div class="cart-product"><strong>${item.name}</strong><small>${item.sizeLabel} · ${money(item.unitPrice)} c/u</small></div>
+    <div class="cart-line-tools"><div class="cart-actions">
+      <button type="button" data-cart-action="minus" data-index="${index}" aria-label="Quitar una unidad de ${item.name}">−</button><span class="cart-qty">${item.qty}</span>
+      <button type="button" data-cart-action="plus" data-index="${index}" aria-label="Agregar una unidad de ${item.name}">+</button>
+      <button type="button" data-cart-action="remove" data-index="${index}" aria-label="Quitar ${item.name} del pedido">×</button>
+    </div><strong class="cart-subtotal">${money(item.unitPrice*item.qty)}</strong></div>
+  </article>`).join(""):'<p class="cart-empty">Todavía no agregaste picadas.</p>';
+  $("grandTotal").textContent=money(total);
+  $("submitOrder").disabled=settings.acceptingOrders===false||cart.length===0;
+  $("submitOrder").textContent=settings.acceptingOrders===false?"Pedidos pausados":cart.length?"Enviar pedido por WhatsApp":"Agregá una picada para continuar";
+}
+$("cartItems").addEventListener("click",event=>{
+  const button=event.target.closest("button[data-cart-action]");
+  if(!button)return;
+  const index=Number(button.dataset.index),item=cart[index];
+  if(!item)return;
+  if(button.dataset.cartAction==="plus")item.qty=Math.min(10,item.qty+1);
+  if(button.dataset.cartAction==="minus")item.qty=Math.max(1,item.qty-1);
+  if(button.dataset.cartAction==="remove")cart.splice(index,1);
+  renderCart();
+});
 
 function localISO(d){ const x=new Date(d.getTime()-d.getTimezoneOffset()*60000); return x.toISOString().slice(0,10); }
 function buildDates(){
@@ -88,9 +127,11 @@ async function buildSlots(){
 $("orderForm").addEventListener("submit",async e=>{
   e.preventDefault();
   if(settings.acceptingOrders===false) return alert("Los pedidos están pausados.");
+  if(!cart.length) return alert("Agregá al menos una picada al pedido.");
   if(!$("date").value||!$("slot").value) return alert("Elegí fecha y horario.");
-  const q=getQty(), total=unit()*q;
-  const order={product:type,size,sizeLabel:SIZES[size],qty:q,total,name:$("name").value.trim(),address:$("address").value.trim(),
+  const total=cart.reduce((sum,item)=>sum+item.unitPrice*item.qty,0);
+  const items=cart.map(item=>({productId:item.productId,product:item.name,size:item.size,sizeLabel:item.sizeLabel,qty:item.qty,unitPrice:item.unitPrice,total:item.unitPrice*item.qty}));
+  const order={product:items.map(item=>`${item.product} (${item.sizeLabel}) x${item.qty}`).join(" + "),size:items.length===1?items[0].size:"multiple",sizeLabel:items.length===1?items[0].sizeLabel:"Varias opciones",items,qty:items.reduce((sum,item)=>sum+item.qty,0),total,name:$("name").value.trim(),address:$("address").value.trim(),
     notes:$("notes").value.trim(),date:$("date").value,slot:$("slot").value,mode:$("mode").value,status:"pending",createdAt:new Date().toISOString()};
   let orderId="SIN-ID";
   if(db){
@@ -100,9 +141,8 @@ $("orderForm").addEventListener("submit",async e=>{
   const msg=`Hola! 👋 Quiero hacer un pedido en *Se Picó*.
 
 🧾 *Pedido:* #${orderId}
-🥓 *Picada:* ${type}
-👥 *Tamaño:* ${SIZES[size]}
-📦 *Cantidad:* ${q}
+🥓 *Picadas:*
+${items.map(item=>`• ${item.product} · ${item.sizeLabel} x${item.qty}: ${money(item.total)}`).join("\n")}
 📅 *Fecha:* ${$("date").value}
 🕐 *Horario:* ${$("slot").value}
 🚚 *Modalidad:* ${$("mode").value}
