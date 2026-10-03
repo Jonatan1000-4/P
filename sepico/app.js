@@ -4,29 +4,38 @@ import { firebaseConfig } from "./firebase-config.js";
 import { DEFAULT_MENU, DEFAULT_SETTINGS, DEFAULT_SCHEDULE } from "./default-data.js";
 
 const SIZES={"2":"Comen 2 · pican 4","4":"Comen 4 · pican 6","8":"Comen 8 · pican 10"};
+const PRODUCT_IMAGES={"clásica":"assets/picada_2.jpg","especial":"assets/picada_3.jpg","premium":"assets/picada_4.jpg"};
 const $=id=>document.getElementById(id);
 const money=n=>new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:0}).format(n);
-let db=null, MENU=[...DEFAULT_MENU], settings={...DEFAULT_SETTINGS}, schedule={...DEFAULT_SCHEDULE};
-let type=MENU[0].name,size="2";
+let db=null, MENU=[], settings={...DEFAULT_SETTINGS}, schedule={...DEFAULT_SCHEDULE};
+let type="", size="2";
 
 try {
-  if(firebaseConfig.apiKey && firebaseConfig.apiKey!=="REEMPLAZAR"){
+  if(firebaseConfig.apiKey && firebaseConfig.apiKey!="REEMPLAZAR"){
     const app=initializeApp(firebaseConfig); db=getFirestore(app);
     const s=await getDoc(doc(db,"config","business"));
     if(s.exists()) settings={...settings,...s.data()};
     const sch=await getDoc(doc(db,"config","schedule"));
     if(sch.exists()) schedule={...schedule,...sch.data()};
     const snap=await getDocs(collection(db,"products"));
-    if(!snap.empty) MENU=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.active!==false);
+    MENU=snap.empty ? [] : snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>x.active!==false);
   }
-} catch(err){ console.warn("Firebase no disponible; se usan datos locales.",err); }
+} catch(err){
+  console.warn("Firebase no disponible; el catálogo no se cargó desde el admin.",err);
+  MENU=[];
+}
 
-type=MENU[0]?.name||"Clásica";
+type=MENU[0]?.name||"";
 
 function render(){
   const cards=$("cards");
+  if(!MENU.length){
+    cards.innerHTML=`<article class="card hot" style="grid-column:1/-1"><div class="body"><div class="tag">Catálogo</div><h3>Cargando productos…</h3><p class="desc">Si esto dura más, revisá la conexión o el panel admin.</p></div></article>`;
+    return;
+  }
+
   cards.innerHTML=MENU.map(m=>`<article class="card ${m.badge?'hot':''}">
-    <div class="media" style="--img:url('${m.img||"assets/picada_2.jpg"}')">${m.badge?`<span class="badge">${m.badge}</span>`:""}</div>
+    <div class="media" style="--img:url('${PRODUCT_IMAGES[m.name?.trim().toLocaleLowerCase("es-AR")]||m.img||"assets/picada_2.jpg"}')">${m.badge?`<span class="badge">${m.badge}</span>`:""}</div>
     <div class="body"><div class="tag">${m.tag||""}</div><h3>${m.name}</h3><p class="desc">${m.desc||""}</p>
     <div class="prices">${Object.entries(m.prices||{}).map(([s,p])=>`<button type="button" class="price" data-type="${m.name}" data-size="${s}"><span>${SIZES[s]||s}</span><b>${money(p)}</b></button>`).join("")}</div>
     <details><summary>Qué trae</summary><p>${m.items||""}</p></details>
