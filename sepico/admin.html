@@ -1,0 +1,53 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Se Picó · Administración</title>
+<meta name="theme-color" content="#11100e">
+<link rel="stylesheet" href="admin.css">
+</head><body>
+<header><div class="wrap bar"><h1>SE PICÓ <span class="gold">· ADMIN</span></h1><div class="row"><span id="userLabel" class="muted"></span><button id="logout" class="ghost hidden">Salir</button></div></div></header>
+<main class="wrap">
+<section id="loginBox" class="panel login"><h2>Ingresar</h2><p class="muted">Acceso exclusivo para los dueños.</p><form id="loginForm"><label>Email<input id="email" type="email" required></label><label>Contraseña<input id="password" type="password" required></label><button class="primary">Entrar</button></form></section>
+<section id="admin" class="hidden">
+<div class="intro"><div><p class="eyebrow">SE PICÓ · TU NEGOCIO</p><h2>Todo bajo control.</h2><p class="muted">Tu catálogo, tus horarios y tus pedidos.<br>Todo a mano, estés donde estés.</p></div><button type="button" id="shareStore" class="primary share-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-4 4 4-4 4 4M5 13v7h14v-7"/></svg><span>Compartir tienda</span></button></div>
+<div id="shareFallback" class="share-fallback" hidden><label>Enlace de tu tienda<input id="storeLink" type="url" readonly></label><p class="muted">Mantené presionado el enlace para copiarlo y compartirlo.</p></div>
+<div id="shareToast" class="toast" role="status" aria-live="polite" hidden></div>
+<div class="tabs" role="tablist" aria-label="Secciones de administración">
+ <button type="button" id="tab-products" role="tab" aria-controls="section-products" aria-selected="true" data-section="products"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>Productos</span></button>
+ <button type="button" id="tab-schedule" role="tab" aria-controls="section-schedule" aria-selected="false" tabindex="-1" data-section="schedule"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Horarios</span></button>
+ <button type="button" id="tab-orders" role="tab" aria-controls="section-orders" aria-selected="false" tabindex="-1" data-section="orders"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l2 17H5L7 4Z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg><span>Pedidos</span></button>
+ <button type="button" id="tab-metrics" role="tab" aria-controls="section-metrics" aria-selected="false" tabindex="-1" data-section="metrics"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h17M9 16v-4m5 4V8m5 8V5"/></svg><span>Métricas</span></button>
+</div>
+<p id="adminError" class="notice hidden" role="alert"></p>
+<section id="section-products" role="tabpanel" aria-labelledby="tab-products" tabindex="0">
+ <section class="panel"><div class="row between"><div><h2>Productos</h2><p class="muted">Editá precios, ingredientes y disponibilidad del catálogo.</p></div><button class="primary" id="newProduct">+ Producto</button></div><div id="products"><p class="muted">Cargando productos…</p></div></section>
+</section>
+<section id="section-schedule" role="tabpanel" aria-labelledby="tab-schedule" tabindex="0" hidden>
+<div class="schedule-grid">
+ <div>
+  <section class="panel"><div class="row between"><h2>Negocio</h2><button class="primary" id="saveBusiness">Guardar</button></div>
+   <label><span>Tomando pedidos <input id="accepting" type="checkbox" style="width:auto"></span></label>
+   <label>Texto de estado<input id="statusText"></label><label>WhatsApp principal<input id="whatsapp"></label>
+   <label>Cupo máximo por horario<input id="maxOrders" type="number" min="1"></label>
+  </section>
+ </div>
+ <div>
+  <section class="panel"><div class="row between"><h2>Horarios de atención</h2><button class="primary" id="saveSchedule">Guardar horarios</button></div><p class="muted">Activá los días de atención y separá los horarios con coma. Ej: 20:00, 20:30, 21:00</p><div id="days" class="days"></div></section>
+ </div>
+</div>
+</section>
+<section id="section-orders" role="tabpanel" aria-labelledby="tab-orders" tabindex="0" hidden>
+ <section class="panel"><div class="row between"><div><h2>Pedidos</h2><p class="muted">Últimos 50 pedidos, del más reciente al más antiguo.</p></div><button class="ghost" id="refreshOrders">Actualizar</button></div><div id="orders" aria-live="polite"><p class="muted">Cargando pedidos…</p></div></section>
+</section>
+<section id="section-metrics" role="tabpanel" aria-labelledby="tab-metrics" tabindex="0" hidden>
+ <section class="panel"><div class="row between"><div><h2>Métricas</h2><p class="muted">Resumen de los últimos 50 pedidos cargados; no representa el historial completo.</p></div><button class="ghost" id="refreshMetrics">Actualizar métricas</button></div>
+ <p id="metricsStatus" class="muted" role="status">Cargando métricas…</p>
+ <div class="metrics-grid">
+  <article class="metric"><span>Pedidos cargados</span><strong id="metricTotal">—</strong><small>Incluye cancelados</small></article>
+  <article class="metric"><span>En curso</span><strong id="metricOpen">—</strong><small>Pendientes, aceptados, preparando y listos</small></article>
+  <article class="metric"><span>Entregados</span><strong id="metricDelivered">—</strong><small>Pedidos finalizados</small></article>
+  <article class="metric"><span>Cancelados</span><strong id="metricCancelled">—</strong><small>Excluidos de los importes</small></article>
+  <article class="metric"><span>Importe de entregados</span><strong id="metricRevenue">—</strong><small>Suma del total de pedidos entregados</small></article>
+  <article class="metric"><span>Ticket promedio entregado</span><strong id="metricAverage">—</strong><small>Importe entregado / pedidos entregados</small></article>
+ </div></section>
+</section>
+</section>
+</main><script type="module" src="admin.js"></script></body></html>
